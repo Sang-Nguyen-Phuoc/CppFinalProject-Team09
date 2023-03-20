@@ -20,9 +20,20 @@ void Student::viewCourses() {
     }
 }
 
-
-void Student::viewScoreBoard() {
-
+void viewScoreboard() {
+    if (numOfCourses == 0) {
+        cout << "You are not enrolled in any courses." << endl;
+        return;
+    }
+    for (int i = 0; i < numOfCourses; i++) {
+        Course* c = course[i];
+        cout << "Course: " << c->courseName << endl;
+        cout << "Final Mark: " << c->getStudentFinalMark(id) << endl;
+        cout << "Midterm Mark: " << c->getStudentMidtermMark(id) << endl;
+        cout << "Other Mark: " << c->getStudentOtherMark(id) << endl;
+        cout << "Total Mark: " << c->getStudentTotalMark(id) << endl;
+        cout << endl;
+    }
 }
 void Student::display() {
     std::cout << "ID: " << studentID << std::endl;
