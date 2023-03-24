@@ -15,4 +15,3 @@ void Course::display(){
 void Course::updateCourse() {
 
 }
-

@@ -2,7 +2,7 @@
 #include <string>
 #include "Student.h"
 #include "staff.h"
-using namespace std
+using namespace std;
 
 struct Course {
     Student* students;
@@ -12,10 +12,12 @@ struct Course {
     string dayofWeek;
     string sessionTime;
     staff* teacher;
+    double* score;
     int numberofCredits;
 
-    void regis();
+    void init();
 	void ImportfromCSVfile();
     void deletecourse();
     void display();
+    void importScore();
 };

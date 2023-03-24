@@ -10,8 +10,8 @@ struct classes {
     staff* teacher;
 
     void addoneStudent();
-    void regis();
+    void init();
 	void ImportfromCSVfile();
-    void deletecourse();
+    void deleteclass();
     void display();
 };
