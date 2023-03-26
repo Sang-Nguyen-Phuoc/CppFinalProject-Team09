@@ -9,6 +9,7 @@ struct Student {
     std::string gender;
     std::string dateOfBirth;
     std::string socialID;
+    Student* next; 
 
     void Register();
     void Login();

@@ -2,7 +2,8 @@
 #include <string>
 #include "Student.h"
 #include "staff.h"
-using namespace std
+
+using namespace std;
 
 struct Course {
     Student* students;
