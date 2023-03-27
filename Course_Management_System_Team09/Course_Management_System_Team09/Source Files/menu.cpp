@@ -108,7 +108,7 @@ void staffmenu(staff* a) {
 				system("cls");
 				cout << "1.Create school year" << endl;
 				cout << "2.Create new class" << endl;
-				cout << "3.Add student into class" << endl;
+				cout << "3.Add a student into class" << endl;
 				cout << "4.Import student from CSV file" << endl;
 				cout << "5.Create a semester" << endl;
 				cout << "6.View a list of class" << endl;
