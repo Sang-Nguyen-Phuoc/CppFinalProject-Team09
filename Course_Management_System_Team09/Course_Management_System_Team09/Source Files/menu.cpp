@@ -110,7 +110,7 @@ void staffmenu(staff* a) {
 				cout << "2.Create new class" << endl;
 				cout << "3.Add student into class" << endl;
 				cout << "4.Import student from CSV file" << endl;
-				cout << "5.Create semester" << endl;
+				cout << "5.Create a semester" << endl;
 				cout << "6.View a list of class" << endl;
 				cout << "7.View a list of all students in a class" << endl;
 				cout << "8.View a list of all courses" << endl;
