@@ -2,41 +2,11 @@
 #include<iostream>
 #include<string>
 #include<stdlib.h>
+#include"staff.h"
 
 using namespace std;
 
-bool checkexist(staff* sHead, string id) {
-	while (sHead) {
-		if (sHead->id == id) return 1;
-		sHead = sHead->next;
-	}
-	return 0;
-}
 
-void regis(staff*& sHead, string id, string password) {
-	if (checkexist(sHead, id)) {
-		cout << "id da ton tai, vui long chon id khac" << endl;
-		return;
-	}
-	staff* temp = new staff;
-	temp->id = id;
-	temp->password = password;
-	temp->next = sHead;
-	sHead = temp;
-	cout << "Sign up successfully" << endl;
-}
-
-staff* login(staff* sHead, string id, string password) {
-	while (sHead) {
-		if (sHead->id == id && sHead->password == password) {
-			cout << "Login success" << endl;
-			return sHead;
-		}
-		sHead = sHead->next;
-	}
-	if (!sHead) cout << "ID doesn't exist" << endl;
-	return nullptr;
-}
 
 
 void menu() {
@@ -108,18 +78,20 @@ void staffmenu(staff* a) {
 				system("cls");
 				cout << "1.Create school year" << endl;
 				cout << "2.Create new class" << endl;
-				cout << "3.Add a student into class" << endl;
+				cout << "3.Add student into class" << endl;
 				cout << "4.Import student from CSV file" << endl;
-				cout << "5.Create a semester" << endl;
-				cout << "6.View a list of class" << endl;
-				cout << "7.View a list of all students in a class" << endl;
-				cout << "8.View a list of all courses" << endl;
-				cout << "9.View a list of students in a course" << endl;
-				cout << "10.End of a semester" << endl;
-				cout << "11.Back" << endl;
-				cout << "Input your choice (1-11): ";
+				cout << "5.Create semester" << endl;
+				cout << "6.Course management" << endl;
+				cout << "7.View a list of class" << endl;
+				cout << "8.View a list of all students in a class" << endl;
+				cout << "9.View a list of all courses" << endl;
+				cout << "10.View a list of students in a course" << endl;
+				cout << "11.End of a semester" << endl;
+				cout << "12.Create staff account" << endl;
+				cout << "13.Back" << endl;
+				cout << "Input your choice (1-13): ";
 				cin >> choice2;
-			} while (choice2 != 11);
+			} while (choice2 != 13);
 			break;
 		case 3:
 			system("cls");
