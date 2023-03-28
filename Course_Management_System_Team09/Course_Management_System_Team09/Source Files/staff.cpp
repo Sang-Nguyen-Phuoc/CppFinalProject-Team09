@@ -1,7 +1,5 @@
 #include"staff.h"
-#include<fstream>
-#include<stdlib.h>
-#include<string>
+#include<iostream>
 
 
 using namespace std;
@@ -14,7 +12,14 @@ bool checkexist(staff* sHead, string id) {
 	return 0;
 }
 
-void regis(staff*& sHead, string id, string password) {
+void regis(staff*& sHead) {
+	string id;
+	string password;
+	cout << "Input id: ";
+	cin.ignore();
+	getline(cin, id);
+	cout << "Input password: ";
+	getline(cin, password);
 	if (checkexist(sHead, id)) {
 		cout << "id da ton tai, vui long chon id khac" << endl;
 		return;
@@ -24,7 +29,7 @@ void regis(staff*& sHead, string id, string password) {
 	temp->password = password;
 	temp->next = sHead;
 	sHead = temp;
-	cout << "Sign up successfully" << endl;
+	cout << "Register success" << endl;
 }
 
 staff* login(staff* sHead, string id, string password) {
@@ -39,21 +44,24 @@ staff* login(staff* sHead, string id, string password) {
 	return nullptr;
 }
 
-
-void createschoolyear() {
-	cout << "Enter school year: ";
-	cin>>schoolyear;
+void createschoolyear(string& schoolyear) {
+	cout << "Input schoolyear: ";
+	getline(cin, schoolyear);
+	cin.get();
 }
 
-void viewaccount(staff a) {
-	cout << "Your id: " << a.id << endl;
-	cout << "Your password: " << a.password << endl;
-}
 
-//void createsemester() {
-//	if (schoolyear) {
-//		cout << "You don't have school year";
-//		return;
-//	}
-//	
-//}
+void createclass(Class*& listclass) {
+	string temp;
+	cout << "Input list class for 1st-year students (quit to stop): ";
+	do {
+		getline(cin, temp);
+		if (temp != "quit") {
+			Class* cur = new Class;
+			cur->classname = temp;
+			cur->next = listclass;
+			listclass = cur;
+		}
+		else break;
+	} while (true);
+}
