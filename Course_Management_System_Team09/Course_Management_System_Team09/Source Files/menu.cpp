@@ -2,14 +2,14 @@
 #include<iostream>
 #include<string>
 #include<stdlib.h>
-#include"staff.h"
-
+#include"class.h"
 using namespace std;
 
 
 
-
 void menu() {
+	Class* listclass;
+	string schoolyear;
 	staff* sHead = new staff;
 	sHead->id = "admin";
 	sHead->password = "1";
@@ -17,13 +17,13 @@ void menu() {
 	string id;
 	string password;
 	int choice;
-	staff* cur = nullptr;
+	staff* cur;
 	do {
-		cout << "Course management system" << endl;
+		cout << "Coursemanagement system" << endl;
 		cout << "1.Staff" << endl;
 		cout << "2.Student" << endl;
 		cout << "3.Exit" << endl;
-		cout << "Input your choice(1-3): ";
+		cout << "Input your choice(1-2): ";
 		cin >> choice;
 		switch (choice) {
 		case 1:
@@ -33,16 +33,16 @@ void menu() {
 			getline(cin, id);
 			cout << "Input password: ";
 			getline(cin, password);
-			cur = login(sHead, id, password);
+			cur=login(sHead, id, password);
 			cout << "Press enter to continue";
 			cin.get();
 			system("cls");
-			staffmenu(cur);
+			staffmenu(cur,sHead,schoolyear,listclass);
 			break;
 		case 2:
 			//same as 1
 			break;
-		case 3:
+		case 3: 
 			system("cls");
 			cout << "Thanks for using";
 			cin.get();
@@ -52,7 +52,7 @@ void menu() {
 	} while (choice != 3);
 }
 
-void staffmenu(staff* a) {
+void staffmenu(staff* a,staff*& sHead,string& schoolyear,Class*& listclass ) {
 	if (!a) return;
 	int choice;
 	do {
@@ -91,6 +91,24 @@ void staffmenu(staff* a) {
 				cout << "13.Back" << endl;
 				cout << "Input your choice (1-13): ";
 				cin >> choice2;
+				switch (choice2) {
+				case 1:
+					system("cls");
+					createschoolyear(schoolyear);
+					break;
+				case 2:
+					system("cls");
+					createclass(listclass);
+					break;
+				case 12:
+					system("cls");
+					regis(sHead);
+					cin.get();
+					break;
+				case 13:
+					system("cls");
+					break;
+				}
 			} while (choice2 != 13);
 			break;
 		case 3:
