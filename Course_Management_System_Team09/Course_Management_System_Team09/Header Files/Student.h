@@ -23,10 +23,5 @@ struct Student {
     void viewScoreBoard();
 };
 
-void Student::login(); 
-oid Student::AddStudentFromKeyBoard();
-void Student::AddStudentsFromCSVFile(string filename);
-void Student::display();
-void Student::viewCourses();
-void Student::viewScoreBoard();
+
 
