@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Student.h"
+#include "Student.h"                                        
 #include "staff.h"
 using namespace std;
 
@@ -14,6 +14,7 @@ struct Course {
     staff* teacher;
     double* score;
     int numberofCredits;
+    Course* next=nullptr;
 
     void init();
 	void ImportfromCSVfile();

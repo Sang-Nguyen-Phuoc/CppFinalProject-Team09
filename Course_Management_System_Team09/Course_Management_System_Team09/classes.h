@@ -8,6 +8,7 @@ struct classes {
     string className;
     string classID;
     staff* teacher;
+    classes* next = nullptr;
 
     void addoneStudent();
     void init();
