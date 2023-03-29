@@ -2,11 +2,13 @@
 #include <string>
 #include "Student.h"
 #include "staff.h"
+#include "semester.h"
 
-struct semester {
-    classes* classes;
-    int no;
+struct year {
+    semester semester[3];
+    int nYear;
     Course* Course;
+    year* next=nullptr;
 
     void init();
 	void ImportfromCSVfile();
