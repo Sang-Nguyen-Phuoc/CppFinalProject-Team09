@@ -17,10 +17,11 @@ struct Student {
 
     void login(); 
     static void AddStudentsFromCSVFile(string filename);
-    void display();
+    void displayOnScreen();
     void AddStudentFromKeyBoard();
     void viewCourses();
     void viewScoreBoard();
+    void displayOnFile();
 };
 
 

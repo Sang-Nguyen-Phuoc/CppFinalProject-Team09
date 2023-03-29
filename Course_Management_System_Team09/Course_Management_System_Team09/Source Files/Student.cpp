@@ -86,7 +86,7 @@ void Student::AddStudentsFromCSVFile(string filename) {
     file.close();
 }
 
-void Student::display() {
+void Student::displayOnScreen() {
     if (!head) {
         cout << "The list is empty";
         return;
@@ -101,6 +101,36 @@ void Student::display() {
         cout << "Social ID: " << current->socialID << endl << endl;
         current = current->next;
     }
+}
+
+void Student::displayOnFile() {
+    if (!head) {
+        cout << "The list is empty";
+        return;
+    }
+
+    // Open the output file for writing
+    ofstream output_file("output.csv");
+
+    // Write the header row to the CSV file
+    output_file << "Student ID,First Name,Last Name,Gender,Date of Birth,Social ID\n";
+
+    Student* current = head;
+    while (current != nullptr) {
+        // Write each student's data to a row in the CSV file
+        output_file << current->studentID << ","
+                    << current->firstName << ","
+                    << current->lastName << ","
+                    << current->gender << ","
+                    << current->dateOfBirth << ","
+                    << current->socialID << "\n";
+        current = current->next;
+    }
+
+    // Close the output file
+    output_file.close();
+
+    cout << "Data has been output to output.csv\n";
 }
 
 void Student::viewCourses() {
