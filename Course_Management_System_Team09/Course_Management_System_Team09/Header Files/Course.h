@@ -17,7 +17,7 @@ struct Course {
 
     void init();
 	void ImportfromCSVfile();
-    void deletecourse();
+    void deleteCourse();
     void display();
-    void importScore();
+    void updateCourse();
 };
