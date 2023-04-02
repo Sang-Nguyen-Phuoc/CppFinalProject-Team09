@@ -7,13 +7,9 @@ using namespace std;
 
 
 
-void menu() {
+void menu(staff*& sHead) {
 	Class* listclass;
 	string schoolyear;
-	staff* sHead = new staff;
-	sHead->id = "admin";
-	sHead->password = "1";
-	sHead->next = nullptr;
 	string id;
 	string password;
 	int choice;
