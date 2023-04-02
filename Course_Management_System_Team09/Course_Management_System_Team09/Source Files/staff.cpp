@@ -1,6 +1,6 @@
 #include"staff.h"
 #include<iostream>
-
+#include<fstream>
 
 using namespace std;
 
@@ -29,6 +29,11 @@ void regis(staff*& sHead) {
 	temp->password = password;
 	temp->next = sHead;
 	sHead = temp;
+	ofstream ofs;
+	ofs.open("staffaccount.txt", ios::app);
+	ofs << id << endl;
+	ofs << password << endl;
+	ofs.close();
 	cout << "Register success" << endl;
 }
 
@@ -65,3 +70,4 @@ void createclass(Class*& listclass) {
 		else break;
 	} while (true);
 }
+
