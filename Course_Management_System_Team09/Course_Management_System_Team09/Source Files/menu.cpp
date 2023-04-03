@@ -3,6 +3,7 @@
 #include<string>
 #include<stdlib.h>
 #include"class.h"
+#include "menu.h"
 using namespace std;
 
 

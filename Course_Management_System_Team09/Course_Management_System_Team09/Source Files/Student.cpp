@@ -1,5 +1,4 @@
 #include "Student.h"
-
 // Declare a global pointer to the head of the linked list
 Student* head = nullptr;
 
@@ -19,7 +18,6 @@ void Student::login() {
     }
 }
 
-
 void Student::AddStudentFromKeyBoard() {
     // Input student information from keyboard
     Student* newStudent = new Student;
@@ -37,7 +35,10 @@ void Student::AddStudentFromKeyBoard() {
     cin.ignore(); 
     cout << "Enter date of birth: ";
     cin >> newStudent->dateOfBirth;
-    cin.ignore(); 
+    cin.ignore();
+    cout << "Enter class name: ";
+    cin >> newStudent->className; 
+    cin.ignore();
     cout << "Enter social ID: ";
     cin >> newStudent->socialID;
     cin.ignore();
@@ -47,7 +48,7 @@ void Student::AddStudentFromKeyBoard() {
     while (current != nullptr) {
         if (current->studentID == newStudent->studentID) {
             cout << "Error: student ID already exists" << endl;
-            return;
+                return;
         }
         current = current->next;
     }
