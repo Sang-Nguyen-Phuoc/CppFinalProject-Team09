@@ -40,7 +40,7 @@ void Course::updateCourse(){
     cin >> sessionTime;
 
     cout << "Enter new teacher's name: ";
-    if (teacher == nullptr) {
+    if (teacher->name == "") {
         teacher = new staff;
     }
     cin >> teacher->name;

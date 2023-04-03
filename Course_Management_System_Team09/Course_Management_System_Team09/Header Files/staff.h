@@ -3,6 +3,7 @@
 #include"class.h"
 using namespace std;
 struct staff {
+	string name; 
 	string id;
 	string password;
 	staff* next = nullptr;

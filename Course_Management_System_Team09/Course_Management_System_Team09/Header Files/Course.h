@@ -2,6 +2,7 @@
 #include <string>
 #include "Student.h"                                        
 #include "staff.h"
+#include "classes.h"
 using namespace std;
 
 struct Course {

@@ -11,6 +11,7 @@ void Student::login() {
     cin >> password;
 
     // For simplicity, we'll assume the password is always 1
+    Student* cur = head;
     if (id == studentID && password == 1) {
         cout << "Login successful!" << endl;
     } else {
