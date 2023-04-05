@@ -11,10 +11,12 @@ struct Student {
     std::string firstName;
     std::string lastName;
     std::string gender;
+    std::string className;
     std::string dateOfBirth;
     std::string socialID;
     Student* next;
 
+    void init();
     void login(); 
     static void AddStudentsFromCSVFile(string filename);
     void displayOnScreen();
