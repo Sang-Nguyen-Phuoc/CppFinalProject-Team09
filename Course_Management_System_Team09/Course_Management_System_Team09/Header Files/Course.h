@@ -22,4 +22,5 @@ struct Course {
     void deleteCourse();
     void display();
     void updateCourse();
+    void addOnestudent();
 };

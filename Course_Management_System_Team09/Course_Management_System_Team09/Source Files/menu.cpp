@@ -120,6 +120,39 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s) {
 					system("cls");
 					createsemester(sy, s);
 					break;
+				case 6:
+					system("cls");
+					Course Course1;
+					cin >> choice3;
+					cout << "1.Create new course" << endl;
+					cout << "2.Update course" << endl;
+					cout << "3.Delete course" << endl;
+					cout << "4.Add student to course" << endl;
+					cout << "5.Remove student from course" << endl;	
+					switch (choice3) {
+					case 1:
+					system("cls");
+					Course1.init();
+					break;
+					case 2:
+					system("cls");
+					Course1.updateCourse();
+					break;
+					case 3:
+					system("cls");
+					Course1.deleteCourse();
+					break;
+					case 4:
+					system("cls");
+					Course1.addOnestudent();
+					break;
+					case 5:
+					system("cls");
+					Course1.deleteOneStudent();
+					break;
+				}
+				while (choice3 != 5);
+				break;
 				case 11:
 					system("cls");
 					endsemester(sy, s);
