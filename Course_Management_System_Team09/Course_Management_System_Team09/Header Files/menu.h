@@ -4,6 +4,6 @@
 #include"staff.h"
 using namespace std;
 
-void menu(staff*& sHead);
+void menu();
 
 
