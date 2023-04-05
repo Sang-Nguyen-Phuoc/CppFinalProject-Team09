@@ -3,16 +3,36 @@
 #include<string>
 #include<stdlib.h>
 #include"class.h"
-#include "menu.h"
+#include<fstream>
+#include"semester.h"
+#include"schoolyear.h"
 using namespace std;
 
 
-
-void menu(staff*& sHead) {
-	Class* listclass;
-	string schoolyear;
+void menu() {
+	semester s;
+	fstream staffaccount;
+	staffaccount.open("staffaccount.txt", fstream::in | fstream::out);
+	staff* sHead = nullptr;
 	string id;
 	string password;
+	while (!staffaccount.eof()) {
+		staffaccount >> id;
+		staffaccount >> password;
+		staff* temp = new staff;
+		temp->id.assign(id);
+		temp->password.assign(password);
+		temp->next = sHead;
+		sHead = temp;
+	}
+	staffaccount.close();
+	schoolyear sy;
+	ifstream f;
+	f.open("schoolyear.txt");
+	f >> sy.year;
+	f >> sy.datestart >> sy.dateend;
+	f >> s.s1 >> s.s2 >> s.s3;
+	f.close();
 	int choice;
 	staff* cur;
 	do {
@@ -30,16 +50,16 @@ void menu(staff*& sHead) {
 			getline(cin, id);
 			cout << "Input password: ";
 			getline(cin, password);
-			cur=login(sHead, id, password);
+			cur = login(sHead, id, password);
 			cout << "Press enter to continue";
 			cin.get();
 			system("cls");
-			staffmenu(cur,sHead,schoolyear,listclass);
+			staffmenu(cur, sHead, sy, s);
 			break;
 		case 2:
 			//same as 1
 			break;
-		case 3: 
+		case 3:
 			system("cls");
 			cout << "Thanks for using";
 			cin.get();
@@ -48,8 +68,7 @@ void menu(staff*& sHead) {
 
 	} while (choice != 3);
 }
-
-void staffmenu(staff* a,staff*& sHead,string& schoolyear,Class*& listclass ) {
+void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s) {
 	if (!a) return;
 	int choice;
 	do {
@@ -83,30 +102,44 @@ void staffmenu(staff* a,staff*& sHead,string& schoolyear,Class*& listclass ) {
 				cout << "8.View a list of all students in a class" << endl;
 				cout << "9.View a list of all courses" << endl;
 				cout << "10.View a list of students in a course" << endl;
-				cout << "11.End of a semester" << endl;
-				cout << "12.Create staff account" << endl;
-				cout << "13.Back" << endl;
-				cout << "Input your choice (1-13): ";
+				cout << "11.End a semester" << endl;
+				cout << "12.Delete school year " << endl;
+				cout << "13.Create staff account" << endl;
+				cout << "14.Back" << endl;
+				cout << "Input your choice (1-14): ";
 				cin >> choice2;
 				switch (choice2) {
 				case 1:
 					system("cls");
-					createschoolyear(schoolyear);
+					createschoolyear(sy);
 					break;
 				case 2:
 					system("cls");
-					createclass(listclass);
+					break;
+				case 5:
+					system("cls");
+					createsemester(sy, s);
+					break;
+				case 11:
+					system("cls");
+					endsemester(sy, s);
+					cin.get();
 					break;
 				case 12:
 					system("cls");
-					regis(sHead);
+					deleteschoolyear(sy);
 					cin.get();
 					break;
 				case 13:
 					system("cls");
+					regis(sHead);
+					cin.get();
+					break;
+				case 14:
+					system("cls");
 					break;
 				}
-			} while (choice2 != 13);
+			} while (choice2 != 14);
 			break;
 		case 3:
 			system("cls");
