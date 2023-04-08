@@ -10,9 +10,9 @@ struct semester {
     int no;
     Course* Course;
     semester* next = nullptr;
-	bool s1 = 0;
-	bool s2 = 0;
-	bool s3 = 0;
+	int s1 = 0;
+	int s2 = 0;
+	int s3 = 0;
 
     void init();
 	void ImportfromCSVfile();
