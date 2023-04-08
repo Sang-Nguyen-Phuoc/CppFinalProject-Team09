@@ -10,6 +10,8 @@ using namespace std;
 
 
 void menu() {
+	student* sStart = nullptr;
+	Class* c = nullptr;
 	semester s;
 	fstream staffaccount;
 	staffaccount.open("staffaccount.txt", fstream::in | fstream::out);
@@ -30,9 +32,42 @@ void menu() {
 	ifstream f;
 	f.open("schoolyear.txt");
 	f >> sy.year;
-	f >> sy.datestart >> sy.dateend;
 	f >> s.s1 >> s.s2 >> s.s3;
 	f.close();
+	ifstream f2;
+	string classname;
+	f2.open("listclass.txt");
+	while (!f2.eof()) {
+		f2 >> classname;
+		Class* temp = new Class;
+		temp->classname = classname;
+		temp->next = c;
+		c = temp;
+	}
+	f2.close();
+	ifstream f3;
+	int studentID;
+	string firstName;
+	string lastName;
+	string gender;
+	string className;
+	string dateOfBirth;
+	string socialID;
+	f3.open("liststudent.txt");
+	while (!f3.eof()) {
+		f3 >> studentID >> firstName >> lastName >> className >> gender >> dateOfBirth >> socialID;
+		student* temp = new student;
+		temp->studentID = studentID;
+		temp->firstName = firstName;
+		temp->lastName = lastName;
+		temp->className = className;
+		temp->gender = gender;
+		temp->dateOfBirth = dateOfBirth;
+		temp->socialID = socialID;
+		temp->next = sStart;
+		sStart = temp;
+	}
+	f3.close();
 	int choice;
 	staff* cur;
 	do {
@@ -40,7 +75,7 @@ void menu() {
 		cout << "1.Staff" << endl;
 		cout << "2.Student" << endl;
 		cout << "3.Exit" << endl;
-		cout << "Input your choice(1-2): ";
+		cout << "Input your choice(1-3): ";
 		cin >> choice;
 		switch (choice) {
 		case 1:
@@ -54,7 +89,7 @@ void menu() {
 			cout << "Press enter to continue";
 			cin.get();
 			system("cls");
-			staffmenu(cur, sHead, sy, s);
+			staffmenu(cur, sHead, sy, s,c,sStart);
 			break;
 		case 2:
 			//same as 1
@@ -67,8 +102,9 @@ void menu() {
 		}
 
 	} while (choice != 3);
+
 }
-void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s) {
+void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s,Class*& c,student*& sStart) {
 	if (!a) return;
 	int choice;
 	do {
@@ -115,6 +151,15 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s) {
 					break;
 				case 2:
 					system("cls");
+					createclass(c);
+					break;
+				case 3:
+					system("cls");
+
+					break;
+				case 4:
+					system("cls");
+					inputfile(s, sStart);
 					break;
 				case 5:
 					system("cls");
@@ -153,6 +198,14 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s) {
 				}
 				while (choice3 != 5);
 				break;
+				case 7:
+					system("cls");
+					viewlistclass(c);
+					break;
+				case 8:
+					system("cls");
+					viewlistofstudentinclass(c, sStart);
+					break;
 				case 11:
 					system("cls");
 					endsemester(sy, s);
