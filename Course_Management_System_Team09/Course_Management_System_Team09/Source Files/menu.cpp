@@ -92,7 +92,8 @@ void menu() {
 			staffmenu(cur, sHead, sy, s,c,sStart);
 			break;
 		case 2:
-			//same as 1
+			system("cls");
+			Student::login(); // login student
 			break;
 		case 3:
 			system("cls");

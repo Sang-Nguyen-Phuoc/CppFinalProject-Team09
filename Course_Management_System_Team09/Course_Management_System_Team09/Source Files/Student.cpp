@@ -4,18 +4,30 @@ Student* head = nullptr;
 
 void Student::login() {
     int id, password;
-    cout << "Enter your student ID: ";
-    cin >> id;
-    cout << "Enter your password: ";
-    cin >> password;
+    
+    do {
+        cout << "Enter your ID: ";
+        cin >> id;
+        cout << "Enter your password: ";
+        cin >> password;
 
-    // For simplicity, we'll assume the password is always 1
-    Student* cur = head;
-    if (id == studentID && password == 1) {
-        cout << "Login successful!" << endl;
-    } else {
-        cout << "Invalid student ID or password." << endl;
-    }
+        Student *cur = head; // Create a pointer to traverse the linked list
+        while (cur != nullptr) {
+            if (cur->studentID == id && password == 1) {
+                cout << "Login successfully" << endl;
+                cout << "Press enter to continue" << endl;
+                system("cls");
+                return;
+            }
+            cur = cur->next;
+            if (cur == nullptr) {
+                cout << "Login failed" << endl;
+                cout << "Press enter to continue" << endl;
+                system("cls");
+            }
+        }
+    } while (true);
+
 }
 
 void Student::AddStudentFromKeyBoard() {
