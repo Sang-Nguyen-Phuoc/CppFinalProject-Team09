@@ -147,12 +147,44 @@ void Student::displayOnFile() {
     cout << "Data has been output to output.csv\n";
 }
 
+void Student::menu() {
+    int choice;
+    do {
+        cout << "1. View courses" << endl;
+        cout << "2. View score board" << endl;
+        cout << "3. Logout" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+        case 1:
+            viewCourses();
+            break;
+        case 2:
+            viewScoreBoard();
+            break;
+        case 3:
+            logout();
+            break;
+        default:
+            cout << "Invalid choice" << endl;
+            break;
+        }
+    } while (choice != 3);
+}
+
 void Student::viewCourses() {
-    // View student's courses
-    // ...
+
 }
 
 void Student::viewScoreBoard() {
-    // View student's score board
-    // ...
+
+
+}
+
+
+void Student::logout() {
+    cout << "Logout successfully" << endl;
+    cout << "Press enter to continue" << endl;
+    system("cls");
+
 }

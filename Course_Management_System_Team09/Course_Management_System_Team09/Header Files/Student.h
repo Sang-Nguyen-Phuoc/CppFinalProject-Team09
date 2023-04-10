@@ -1,4 +1,4 @@
-#include <iostream> 
+#include <iostream>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -24,6 +24,8 @@ struct Student {
     void viewCourses();
     void viewScoreBoard();
     void displayOnFile();
+    void menu();
+    void logout();
 };
 
 

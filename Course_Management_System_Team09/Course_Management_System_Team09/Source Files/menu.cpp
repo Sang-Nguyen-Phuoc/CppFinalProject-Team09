@@ -94,6 +94,7 @@ void menu() {
 		case 2:
 			system("cls");
 			Student::login(); // login student
+			Student::menu(); // student menu
 			break;
 		case 3:
 			system("cls");
