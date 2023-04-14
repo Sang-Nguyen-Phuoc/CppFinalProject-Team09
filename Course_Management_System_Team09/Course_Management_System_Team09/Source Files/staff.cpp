@@ -2,7 +2,39 @@
 #include<iostream>
 #include<fstream>
 #include"student.h"
+#include "Course.h"
+
 using namespace std;
+
+// Add students to course
+void addStudentToCourse(Course* course, const string& filename) {
+    ifstream file(filename);
+    string line;
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string studentID, firstName, lastName, classID;
+        getline(ss, studentID, ',');
+        getline(ss, firstName, ',');
+        getline(ss, lastName, ',');
+        getline(ss, classID, ',');
+
+        student* newStudent = new student{ studentID, firstName, lastName, classID, nullptr };
+        if (course->liststudent == nullptr) {
+            course->liststudent = newStudent;
+        }
+        else {
+            student* current = course->liststudent;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = newStudent;
+        }
+        course->numofstudent++;
+    }
+
+    file.close();
+}
 
 bool checkexist(staff* sHead, string id) {
 	while (sHead) {
