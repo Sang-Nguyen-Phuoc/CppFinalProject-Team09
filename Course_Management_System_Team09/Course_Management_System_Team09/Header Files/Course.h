@@ -6,21 +6,13 @@
 using namespace std;
 
 struct Course {
-    Student* students;
-    string courseName;
-    string courseID;
-    classes* classID;
-    string dayofWeek;
-    string sessionTime;
-    staff* teacher;
-    double* score;
-    int numberofCredits;
-    Course* next=nullptr;
-
-    void init();
-	void ImportfromCSVfile();
-    void deleteCourse();
-    void display();
-    void updateCourse();
-    void addOnestudent();
+	string courseName;
+	string courseID;
+	string dayofWeek;
+	string sessionTime;
+	string teacher;
+	int numberofCredits;
+	int numofstudent=0;
+	student* liststudent;
+	Course* next = nullptr;
 };
