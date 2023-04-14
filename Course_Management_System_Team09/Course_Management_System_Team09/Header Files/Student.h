@@ -14,9 +14,7 @@ struct Student {
     std::string className;
     std::string dateOfBirth;
     std::string socialID;
-    std::string course1Mark;
-    std::string course2Mark;
-    std::string course3Mark;
+    std::string point = " "; 
     Student* next;
 
     void init();
