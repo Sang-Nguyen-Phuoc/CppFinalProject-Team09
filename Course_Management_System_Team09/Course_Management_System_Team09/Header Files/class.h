@@ -5,6 +5,6 @@ using namespace std;
 
 struct Class {
 	string classname;
-	Student* liststudent=nullptr;
 	Class* next=nullptr;
+
 };
