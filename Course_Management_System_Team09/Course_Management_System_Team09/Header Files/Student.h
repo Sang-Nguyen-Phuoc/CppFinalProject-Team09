@@ -6,28 +6,20 @@
 #include <vector>
 using namespace std;
 
-struct Student {
-    int studentID;
-    std::string firstName;
-    std::string lastName;
-    std::string gender;
-    std::string className;
-    std::string dateOfBirth;
-    std::string socialID;
-    std::string point = " "; 
-    Student* next;
+struct student {
+    string studentID;
+    string firstName;
+    string lastName;
+    string gender;
+    string className;
+    string dateOfBirth;
+    string socialID;
+    student* next = nullptr;
+    string point="x";
+    string password = "1";
 
-    void init();
-    void login(); 
-    static void AddStudentsFromCSVFile(string filename);
-    void displayOnScreen();
-    void AddStudentFromKeyBoard();
-    void viewCourses();
-    void viewScoreBoard();
-    void displayOnFile();
-    void menu();
-    void logout();
 };
+student* login2(student* sStart);
 
 
 
