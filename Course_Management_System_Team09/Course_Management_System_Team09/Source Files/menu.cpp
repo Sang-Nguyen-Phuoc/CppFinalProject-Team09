@@ -6,70 +6,22 @@
 #include<fstream>
 #include"semester.h"
 #include"schoolyear.h"
+#include"student.h"
+#include"staff.h"
 using namespace std;
 
 
+
 void menu() {
+	Course* cHead = nullptr;
 	student* sStart = nullptr;
 	Class* c = nullptr;
-	semester s;
-	fstream staffaccount;
-	staffaccount.open("staffaccount.txt", fstream::in | fstream::out);
 	staff* sHead = nullptr;
-	string id;
-	string password;
-	while (!staffaccount.eof()) {
-		staffaccount >> id;
-		staffaccount >> password;
-		staff* temp = new staff;
-		temp->id.assign(id);
-		temp->password.assign(password);
-		temp->next = sHead;
-		sHead = temp;
-	}
-	staffaccount.close();
-	schoolyear sy;
-	ifstream f;
-	f.open("schoolyear.txt");
-	f >> sy.year;
-	f >> s.s1 >> s.s2 >> s.s3;
-	f.close();
-	ifstream f2;
-	string classname;
-	f2.open("listclass.txt");
-	while (!f2.eof()) {
-		f2 >> classname;
-		Class* temp = new Class;
-		temp->classname = classname;
-		temp->next = c;
-		c = temp;
-	}
-	f2.close();
-	ifstream f3;
-	int studentID;
-	string firstName;
-	string lastName;
-	string gender;
-	string className;
-	string dateOfBirth;
-	string socialID;
-	f3.open("liststudent.txt");
-	while (!f3.eof()) {
-		f3 >> studentID >> firstName >> lastName >> className >> gender >> dateOfBirth >> socialID;
-		student* temp = new student;
-		temp->studentID = studentID;
-		temp->firstName = firstName;
-		temp->lastName = lastName;
-		temp->className = className;
-		temp->gender = gender;
-		temp->dateOfBirth = dateOfBirth;
-		temp->socialID = socialID;
-		temp->next = sStart;
-		sStart = temp;
-	}
-	f3.close();
+	schoolyear s;
+	input(sHead, s, c, sStart, cHead);
 	int choice;
-	staff* cur;
+	staff* cur1;
+	student* cur2;
 	do {
 		cout << "Coursemanagement system" << endl;
 		cout << "1.Staff" << endl;
@@ -80,33 +32,33 @@ void menu() {
 		switch (choice) {
 		case 1:
 			system("cls");
-			cout << "Input id: ";
-			cin.ignore();
-			getline(cin, id);
-			cout << "Input password: ";
-			getline(cin, password);
-			cur = login(sHead, id, password);
-			cout << "Press enter to continue";
+			cur1 = login1(sHead);
 			cin.get();
 			system("cls");
-			staffmenu(cur, sHead, sy, s,c,sStart);
+			staffmenu(cur1, sHead, s, c, sStart, cHead);
 			break;
 		case 2:
 			system("cls");
-			Student::login(); // login student
-			Student::menu(); // student menu
+			cur2 = login2(sStart);
+			cin.get();
+			system("cls");
+			studentmenu(cur2);
 			break;
 		case 3:
 			system("cls");
+			output(sHead, s, c, sStart, cHead);
 			cout << "Thanks for using";
 			cin.get();
 			return;
+		default:
+			cout << "Invalid choice" << endl;
+			break;
 		}
 
 	} while (choice != 3);
 
 }
-void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s,Class*& c,student*& sStart) {
+void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& course) {
 	if (!a) return;
 	int choice;
 	do {
@@ -149,7 +101,7 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s,Class*& c,st
 				switch (choice2) {
 				case 1:
 					system("cls");
-					createschoolyear(sy);
+					createschoolyear(s);
 					break;
 				case 2:
 					system("cls");
@@ -165,41 +117,55 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s,Class*& c,st
 					break;
 				case 5:
 					system("cls");
-					createsemester(sy, s);
+					createsemester(s);
 					break;
 				case 6:
-					system("cls");
-					Course Course1;
-					cin >> choice3;
-					cout << "1.Create new course" << endl;
-					cout << "2.Update course" << endl;
-					cout << "3.Delete course" << endl;
-					cout << "4.Add student to course" << endl;
-					cout << "5.Remove student from course" << endl;	
-					switch (choice3) {
-					case 1:
-					system("cls");
-					Course1.init();
+					int choice3;
+					do {
+						system("cls");
+						cout << "1.Create new course" << endl;
+						cout << "2.Update course" << endl;
+						cout << "3.Delete course" << endl;
+						cout << "4.Add student to course" << endl;
+						cout << "5.Add student to course from csv file" << endl;
+						cout << "6.Remove student from course" << endl;
+						cout << "7.Back" << endl;
+						cout << "Input your choice(1-7):";
+						cin >> choice3;
+						switch (choice3) {
+						case 1:
+							system("cls");
+							addCourse(course);
+							break;
+						case 2:
+							system("cls");
+							/*Course1.updateCourse();*/
+							break;
+						case 3:
+							system("cls");
+							deleteCourse(course);
+							break;
+						case 4:
+							system("cls");
+							/*Course1.addOnestudent();*/
+							break;
+						case 5:
+							system("cls");
+
+							break;
+						case 6:
+							system("cls");
+							/*Course1.deleteOneStudent();*/
+							break;
+						case 7:
+							system("cls");
+							break;
+						default:
+							cout << "Invalid choice" << endl;
+							break;
+						}
+					} while (choice3 != 7);
 					break;
-					case 2:
-					system("cls");
-					Course1.updateCourse();
-					break;
-					case 3:
-					system("cls");
-					Course1.deleteCourse();
-					break;
-					case 4:
-					system("cls");
-					Course1.addOnestudent();
-					break;
-					case 5:
-					system("cls");
-					Course1.deleteOneStudent();
-					break;
-				}
-				while (choice3 != 5);
-				break;
 				case 7:
 					system("cls");
 					viewlistclass(c);
@@ -208,14 +174,18 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s,Class*& c,st
 					system("cls");
 					viewlistofstudentinclass(c, sStart);
 					break;
+				case 9:
+					system("cls");
+					viewlistcourse(course);
+					break;
 				case 11:
 					system("cls");
-					endsemester(sy, s);
+					endsemester(s);
 					cin.get();
 					break;
 				case 12:
 					system("cls");
-					deleteschoolyear(sy);
+					deleteschoolyear(s);
 					cin.get();
 					break;
 				case 13:
@@ -226,11 +196,42 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& sy, semester& s,Class*& c,st
 				case 14:
 					system("cls");
 					break;
+				default:
+					cout << "Invalid choice" << endl;
+					break;
 				}
 			} while (choice2 != 14);
 			break;
 		case 3:
 			system("cls");
+			break;
+		}
+	} while (choice != 3);
+}
+
+
+void studentmenu(student* s) {
+	int choice;
+	do {
+		cout << "1. View courses" << endl;
+		cout << "2. View score board" << endl;
+		cout << "3. Logout" << endl;
+		cout << "Enter your choice(1-3): ";
+		cin >> choice;
+		switch (choice) {
+		case 1:
+			system("cls");
+			/*viewCourses();*/
+			break;
+		case 2:
+			system("cls");
+			/*viewScoreBoard();*/
+			break;
+		case 3:
+			system("cls");
+			break;
+		default:
+			cout << "Invalid choice" << endl;
 			break;
 		}
 	} while (choice != 3);
