@@ -16,3 +16,7 @@ struct Course {
 	student* liststudent;
 	Course* next = nullptr;
 };
+
+void addStudentToCourse(Course* course);
+void deleteCourse(Course*& course);
+void addCourse(Course*& course);
