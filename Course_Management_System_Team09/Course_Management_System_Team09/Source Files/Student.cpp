@@ -2,32 +2,25 @@
 // Declare a global pointer to the head of the linked list
 Student* head = nullptr;
 
-void Student::login() {
-    int id, password;
-    
-    do {
-        cout << "Enter your ID: ";
-        cin >> id;
-        cout << "Enter your password: ";
-        cin >> password;
+student* login2(student* sStart) {
+	string id;
+	string password;
+	cout << "Input id: ";
+	cin.ignore();
+	getline(cin, id);
+	cout << "Input password: ";
+	getline(cin, password);
 
-        Student *cur = head; // Create a pointer to traverse the linked list
-        while (cur != nullptr) {
-            if (cur->studentID == id && password == 1) {
-                cout << "Login successfully" << endl;
-                cout << "Press enter to continue" << endl;
-                system("cls");
-                return;
-            }
-            cur = cur->next;
-            if (cur == nullptr) {
-                cout << "Login failed" << endl;
-                cout << "Press enter to continue" << endl;
-                system("cls");
-            }
-        }
-    } while (true);
-
+	while (sStart) {
+		if (sStart->studentID == id && sStart->password == password) {
+			cout << "Login success" << endl;
+			return sStart;
+		}
+		sStart = sStart->next;
+	}
+	if (!sStart) cout << "ID doesn't exist" << endl;
+	cout << "Press enter to continue";
+	return nullptr;
 }
 
 void Student::AddStudentFromKeyBoard() {
@@ -68,37 +61,6 @@ void Student::AddStudentFromKeyBoard() {
     head = newStudent;
 }
 
-void Student::AddStudentsFromCSVFile(string filename) {
-    ifstream file(filename);
-    if (!file) {
-        cerr << "Error: could not open file " << filename << endl;
-        return;
-    }
-    
-    string line;
-    while (getline(file, line)) {
-        stringstream ss(line);
-        string field;
-        vector<string> fields;
-        while (getline(ss, field, ',')) {
-            fields.push_back(field);
-        }
-        if (fields.size() != 6) {
-            cerr << "Error: invalid format in file " << filename << endl;
-            continue;
-        }
-        Student* newStudent = new Student;
-        newStudent->studentID = stoi(fields[0]);
-        newStudent->firstName = fields[1];
-        newStudent->lastName = fields[2];
-        newStudent->gender = fields[3];
-        newStudent->dateOfBirth = fields[4];
-        newStudent->socialID = fields[5];
-        newStudent->next = head;
-        head = newStudent;
-    }
-    file.close();
-}
 
 void Student::displayOnScreen() {
     if (!head) {
@@ -147,30 +109,7 @@ void Student::displayOnFile() {
     cout << "Data has been output to output.csv\n";
 }
 
-void Student::menu() {
-    int choice;
-    do {
-        cout << "1. View courses" << endl;
-        cout << "2. View score board" << endl;
-        cout << "3. Logout" << endl;
-        cout << "Enter your choice: ";
-        cin >> choice;
-        switch (choice) {
-        case 1:
-            viewCourses();
-            break;
-        case 2:
-            viewScoreBoard();
-            break;
-        case 3:
-            logout();
-            break;
-        default:
-            cout << "Invalid choice" << endl;
-            break;
-        }
-    } while (choice != 3);
-}
+
 
 void Student::viewCourses() {
 
@@ -182,9 +121,4 @@ void Student::viewScoreBoard() {
 }
 
 
-void Student::logout() {
-    cout << "Logout successfully" << endl;
-    cout << "Press enter to continue" << endl;
-    system("cls");
 
-}
