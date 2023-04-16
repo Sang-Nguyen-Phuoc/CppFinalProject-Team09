@@ -5,23 +5,32 @@
 #include"schoolyear.h"
 using namespace std;
 
-void getPoints(string filename, student*& head) {
+void getPoints(string filename, student *&head)
+{
     ifstream file(filename);
     string line;
-    while (getline(file, line)) {
+    while (getline(file, line))
+    {
         stringstream ss(line);
         string data;
-        student* temp = new student;
+        student *temp = new student;
         getline(ss, temp->studentID, ',');
         getline(ss, temp->firstName, ',');
         getline(ss, temp->lastName, ',');
         getline(ss, temp->className, ',');
-        getline(ss, temp->point, ',');
-        if (head == nullptr) {
+        getline(ss, temp->totalMark, ',');
+        getline(ss, temp->finalMark, ',');
+        getline(ss, temp->midtermMark, ',');
+        getline(ss, temp->otherMark, ',');
+        if (head == nullptr)
+        {
             head = temp;
-        } else {
-            student* curr = head;
-            while (curr->next != nullptr) {
+        }
+        else
+        {
+            student *curr = head;
+            while (curr->next != nullptr)
+            {
                 curr = curr->next;
             }
             curr->next = temp;
