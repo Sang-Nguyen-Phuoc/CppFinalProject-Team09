@@ -5,6 +5,40 @@
 #include"schoolyear.h"
 using namespace std;
 
+void exportToCSVFile(Course* course)
+{
+    string filename = course->courseID + "_Students.csv"; // The filename is the course ID followed by "_Students.csv"
+    ofstream outputFile(filename);
+    if (!outputFile.is_open()) {
+        cout << "Failed to create the file." << endl;
+        return;
+    }
+
+    // Write the header row
+    outputFile << "Student ID,First Name,Last Name,Gender,Class Name,Date of Birth,Social ID,Total Mark,Final Mark,Midterm Mark,Other Mark\n";
+
+    // Iterate over the list of students and write each one to the file
+    student* pHead = course->liststudent;
+    while (pHead != nullptr) {
+        outputFile << pHead->studentID << ",";
+        outputFile << pHead->firstName << ",";
+        outputFile << pHead->lastName << ",";
+        outputFile << pHead->gender << ",";
+        outputFile << pHead->className << ",";
+        outputFile << pHead->dateOfBirth << ",";
+        outputFile << pHead->socialID << ",";
+        outputFile << pHead->totalMark << ",";
+        outputFile << pHead->finalMark << ",";
+        outputFile << pHead->midtermMark << ",";
+        outputFile << pHead->otherMark << "\n";
+        pHead = pHead->next;
+    }
+
+    // Close the file
+    outputFile.close();
+    cout << "Exported the list of students to " << filename << "." << endl;
+}
+
 void getPoints(string filename, student *&head)
 {
     ifstream file(filename);
