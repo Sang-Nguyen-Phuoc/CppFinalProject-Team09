@@ -5,6 +5,31 @@
 #include"schoolyear.h"
 using namespace std;
 
+void getPoints(string filename, student*& head) {
+    ifstream file(filename);
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string data;
+        student* temp = new student;
+        getline(ss, temp->studentID, ',');
+        getline(ss, temp->firstName, ',');
+        getline(ss, temp->lastName, ',');
+        getline(ss, temp->className, ',');
+        getline(ss, temp->point, ',');
+        if (head == nullptr) {
+            head = temp;
+        } else {
+            student* curr = head;
+            while (curr->next != nullptr) {
+                curr = curr->next;
+            }
+            curr->next = temp;
+        }
+    }
+    file.close();
+}
+
 bool checkexist(staff* sHead, string id) {
 	while (sHead) {
 		if (sHead->id == id) return 1;
