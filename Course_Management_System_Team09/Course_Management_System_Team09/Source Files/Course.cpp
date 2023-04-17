@@ -700,3 +700,62 @@ void viewscoreofclass(Course* course, schoolyear sy, Class* c,student*sHead) {
     }
     cin.get();
 }
+
+void exportToCSVFile(Course* course,student*sHead) {
+    cin.ignore();
+    if (!course) {
+        cout << "No course existed";
+        cin.get();
+        return;
+    }
+    Course* cur = course;
+    int i = 1;
+    cout << "List of course" << endl;
+    while (cur) {
+        cout << i << "." << course->courseName << endl;
+        i++;
+        cur = cur->next;
+    }
+    cout << "Input your choice (name):";
+    string name;
+    getline(cin, name);
+    string filename = name + "_Students.csv"; // The filename is the course ID followed by "_Students.csv"
+    ofstream outputFile(filename);
+    if (!outputFile.is_open()) {
+        cout << "Failed to create the file." << endl;
+        return;
+    }
+
+    // Write the header row
+    outputFile << "Student ID,First Name,Last Name,Gender,Class Name,Date of Birth,Social ID,Total Mark,Final Mark,Midterm Mark,Other Mark\n";
+
+    // Iterate over the list of students and write each one to the file
+    student* pHead = sHead;
+    while (pHead != nullptr) {
+        coursedata* temp = pHead->listcourse;
+        while (temp) {
+            if (temp->courseName == name) {
+                outputFile << pHead->studentID << ",";
+                outputFile << pHead->firstName << ",";
+                outputFile << pHead->lastName << ",";
+                outputFile << pHead->gender << ",";
+                outputFile << pHead->className << ",";
+                outputFile << pHead->dateOfBirth << ",";
+                outputFile << pHead->socialID << ",";
+                outputFile << pHead->listcourse->totalMark << ",";
+                outputFile << pHead->listcourse->finalMark << ",";
+                outputFile << pHead->listcourse->midtermMark << ",";
+                outputFile << pHead->listcourse->otherMark << "\n";
+                break;
+            }
+            temp = temp->next;
+        }
+       
+        pHead = pHead->next;
+    }
+
+    // Close the file
+    outputFile.close();
+    cout << "Exported the list of students to " << filename << "." << endl;
+    cin.get();
+}
