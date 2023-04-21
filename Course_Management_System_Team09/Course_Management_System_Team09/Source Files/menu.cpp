@@ -1,5 +1,6 @@
 #include"menu.h"
 #include<iostream>
+#include<iomanip>
 #include<string>
 #include<stdlib.h>
 #include"class.h"
