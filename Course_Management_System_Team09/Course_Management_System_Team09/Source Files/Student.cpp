@@ -1,7 +1,10 @@
 #include "Student.h"
-// Declare a global pointer to the head of the linked list
-Student* head = nullptr;
-
+#include<string>
+#include"Course.h"
+using namespace std;
+//// Declare a global pointer to the head of the linked list
+//Student* head = nullptr;
+//
 student* login2(student* sStart) {
 	string id;
 	string password;
@@ -23,101 +26,40 @@ student* login2(student* sStart) {
 	return nullptr;
 }
 
-void Student::AddStudentFromKeyBoard() {
-    // Input student information from keyboard
-    Student* newStudent = new Student;
-    cout << "Enter student ID: ";
-    cin >> newStudent->studentID;
-    cin.ignore(); 
-    cout << "Enter first name: ";
-    cin >> newStudent->firstName;
-    cin.ignore(); 
-    cout << "Enter last name: ";
-    cin >> newStudent->lastName;
-    cin.ignore(); 
-    cout << "Enter gender: ";
-    cin >> newStudent->gender;
-    cin.ignore(); 
-    cout << "Enter date of birth: ";
-    cin >> newStudent->dateOfBirth;
-    cin.ignore();
-    cout << "Enter class name: ";
-    cin >> newStudent->className; 
-    cin.ignore();
-    cout << "Enter social ID: ";
-    cin >> newStudent->socialID;
-    cin.ignore();
-
-     // Check if the student ID is unique
-    Student* current = head;
-    while (current != nullptr) {
-        if (current->studentID == newStudent->studentID) {
-            cout << "Error: student ID already exists" << endl;
-                return;
-        }
-        current = current->next;
-    }
-    newStudent->next = head;
-    head = newStudent;
+void viewcourse(Course* course,student* s,schoolyear sy) {
+	cin.ignore();
+	cout << "YOUR COURSE" << endl;
+	int i = 1;
+	cout << "#	Course ID	Course name		Number of credits	Schedule	Teacher" << endl;
+	while (course) {
+		student* temp = course->liststudent;
+		while (temp) {
+			if (temp->studentID == s->studentID) {
+				if (course->sc.s1 <= sy.s1 && course->sc.s2 <= sy.s2 && course->sc.s3 <= sy.s3) {
+					cout << i << "	" << course->courseID << "	" << course->courseName << "	" << course->numberofCredits << "	" << course->dayofWeek << " " << course->sessionTime << "	" << course->teacher << endl;
+					break;
+				}
+			}
+			temp = temp->next;
+		}
+		course = course->next;
+	}
+	cin.get();
+	
 }
 
-
-void Student::displayOnScreen() {
-    if (!head) {
-        cout << "The list is empty";
-        return;
-    }
-    Student* current = head;
-    while (current != nullptr) {
-        cout << "Student ID: " << current->studentID << endl;
-        cout << "First Name: " << current->firstName << endl;
-        cout << "Last Name: " << current->lastName << endl;
-        cout << "Gender: " << current->gender << endl;
-        cout << "Date of Birth: " << current->dateOfBirth << endl;
-        cout << "Social ID: " << current->socialID << endl << endl;
-        current = current->next;
-    }
-}
-
-void Student::displayOnFile() {
-    if (!head) {
-        cout << "The list is empty";
-        return;
-    }
-
-    // Open the output file for writing
-    ofstream output_file("output.csv");
-
-    // Write the header row to the CSV file
-    output_file << "Student ID,First Name,Last Name,Gender,Date of Birth,Social ID\n";
-
-    Student* current = head;
-    while (current != nullptr) {
-        // Write each student's data to a row in the CSV file
-        output_file << current->studentID << ","
-                    << current->firstName << ","
-                    << current->lastName << ","
-                    << current->gender << ","
-                    << current->dateOfBirth << ","
-                    << current->socialID << "\n";
-        current = current->next;
-    }
-
-    // Close the output file
-    output_file.close();
-
-    cout << "Data has been output to output.csv\n";
-}
-
-
-
-void Student::viewCourses() {
-
-}
-
-void Student::viewScoreBoard() {
-
-
+void viewownscore(Course* course, student* s) {
+	cin.ignore();
+	cout << "Your Scoreboard" << endl;
+	int i = 1;
+	cout << "#	Course name		Other mark	Midterm Mark	Final Mark	Total Mark" << endl;
+	coursedata* run = s->listcourse;
+	while (run) {
+		cout << i << "	" << run->courseName << "	" << run->otherMark << "	" << run->midtermMark << "	" << run->finalMark << "	" << run->totalMark << endl;
+		i++;
+		run = run->next;
+	}
+	cin.get();
 }
 
 

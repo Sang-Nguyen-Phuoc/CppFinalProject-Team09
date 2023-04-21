@@ -41,8 +41,12 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 		if (classname == "") break;
 		Class* temp = new Class;
 		temp->classname = classname;
-		temp->next = c;
-		c = temp;
+		if (!c) c = temp;
+		else {
+			Class* run = c;
+			while (run->next) run = run->next;
+			run->next = temp;
+		}
 	}
 	f3.close();
 	ifstream f4;
@@ -53,9 +57,10 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 	string className;
 	string dateOfBirth;
 	string socialID;
+	int numofcourse;
 	f4.open("liststudent.txt");
 	while (!f4.eof()) {
-		f4 >> studentID >> firstName >> lastName >> className >> gender >> dateOfBirth >> socialID;
+		f4 >> studentID >> firstName >> lastName >> className >> gender >> dateOfBirth >> socialID>>numofcourse;
 		if (studentID == "") break;
 		student* temp = new student;
 		temp->studentID = studentID;
@@ -65,8 +70,25 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 		temp->gender = gender;
 		temp->dateOfBirth = dateOfBirth;
 		temp->socialID = socialID;
-		temp->next = sStart;
-		sStart = temp;
+		temp->numofcourse = numofcourse;
+		int n = numofcourse;
+		while (n) {
+			coursedata* run = new coursedata;
+			f4 >> run->courseName >> run->totalMark >> run->finalMark >>run->midtermMark >> run->otherMark;
+			if (!temp->listcourse) temp->listcourse = run;
+			else {
+				coursedata* run2 = temp->listcourse;
+				while (run2->next) run2 = run2->next;
+				run2->next = run;
+			}
+			n--;
+		}
+		if (!sStart) sStart=temp;
+		else {
+			student* run = sStart;
+			while (run->next) run = run->next;
+			run->next = temp;
+		}
 	}
 	f4.close();
 	ifstream f5;
@@ -77,12 +99,16 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 	string teacher;
 	int numofstudent;
 	int numberofCredits;
+	string year;
+	int s1, s2, s3;
 	f5.open("listcourse.txt");
 	int i = 0;
 	string line;
-	while (!f5.eof()) {
-
-		f5 >> courseName >> courseID >> dayofWeek >> sessionTime >> teacher >> numofstudent >> numberofCredits;
+	while (getline(f5, courseName) && getline(f5, courseID) &&
+	getline(f5, dayofWeek) &&
+	getline(f5, sessionTime) &&
+	getline(f5, teacher) &&
+	f5 >> numofstudent >> numberofCredits >>year>>s1>>s2>>s3 ) {
 		if (courseName == "") break;
 		Course* temp = new Course;
 		temp->courseName = courseName;
@@ -92,24 +118,34 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 		temp->teacher = teacher;
 		temp->numofstudent = numofstudent;
 		temp->numberofCredits = numberofCredits;
-		temp->next = cHead;
-		cHead = temp;
-		int studentID;
+		temp->sc.year = year;
+		temp->sc.s1 = s1;
+		temp->sc.s2 = s2;
+		temp->sc.s3 = s3;
+		if (!cHead) cHead=temp;
+		else {
+			Course* run = cHead;
+			while (run->next) run = run->next;
+			run->next = temp;
+		}
+		string studentID;
 		string firstName;
 		string lastName;
 		string className;
-		string point;
 		int n = numofstudent;
 		while (n) {
-			f5 >> studentID >> firstName >> lastName >> className >> point;
+			f5 >> studentID >> firstName >> lastName >> className;
 			student* cur = new student;
 			cur->studentID = studentID;
 			cur->firstName = firstName;
 			cur->lastName = lastName;
 			cur->className = className;
-			cur->point = point;
-			cur->next = temp->liststudent;
-			temp->liststudent = cur;
+			if (!temp->liststudent) temp->liststudent=cur;
+			else {
+				student* run = temp->liststudent;
+				while (run->next) run = run->next;
+				run->next = cur;
+			}
 			n--;
 		}
 	}
@@ -147,7 +183,13 @@ void output(staff* sHead, schoolyear s, Class* c, student* sStart, Course* cHead
 
 	while (sStart) {
 		student* cur = sStart;
-		of4 << sStart->studentID << endl << sStart->firstName << endl << sStart->lastName << endl << sStart->className << endl << sStart->gender << endl << sStart->dateOfBirth << endl << sStart->socialID << endl;
+		of4 << sStart->studentID << endl << sStart->firstName << endl << sStart->lastName << endl << sStart->className << endl << sStart->gender << endl << sStart->dateOfBirth << endl << sStart->socialID << endl << sStart->numofcourse << endl;
+		while (sStart->listcourse) {
+			coursedata* temp = sStart->listcourse;
+			of4 << sStart->listcourse->courseName << endl << sStart->listcourse->totalMark << endl << sStart->listcourse->finalMark << endl << sStart->listcourse->midtermMark << endl << sStart->listcourse->otherMark << endl;
+			sStart->listcourse = sStart->listcourse->next;
+			delete temp;
+		}
 		sStart = sStart->next;
 		delete cur;
 	}
@@ -156,14 +198,12 @@ void output(staff* sHead, schoolyear s, Class* c, student* sStart, Course* cHead
 	of5.open("listcourse.txt");
 	while (cHead) {
 		Course* cur = cHead;
-		int n = cHead->numofstudent;
-		of5 << cHead->courseName << endl << cHead->courseID << endl << cHead->dayofWeek << endl << cHead->sessionTime << endl << cHead->teacher << endl << cHead->numofstudent << endl << cHead->numberofCredits << endl;
-		while (n) {
+		of5 << cHead->courseName << endl << cHead->courseID << endl << cHead->dayofWeek << endl << cHead->sessionTime << endl << cHead->teacher << endl << cHead->numofstudent << endl << cHead->numberofCredits << endl << cHead->sc.year << endl << cHead->sc.s1 << endl << cHead->sc.s2 << endl << cHead->sc.s3 << endl;
+		while (cHead->liststudent) {
 			student* temp = cHead->liststudent;
-			of5 << cHead->liststudent->studentID << endl << cHead->liststudent->firstName << endl << cHead->liststudent->lastName << endl << cHead->liststudent->className << endl << cHead->liststudent->point << endl;
-			n--;
-			delete temp;
+			of5 << cHead->liststudent->studentID << endl << cHead->liststudent->firstName << endl << cHead->liststudent->lastName << endl << cHead->liststudent->className << endl;
 			cHead->liststudent = cHead->liststudent->next;
+			delete temp;
 		}
 		cHead = cHead->next;
 		delete cur;

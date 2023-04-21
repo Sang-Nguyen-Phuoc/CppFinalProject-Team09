@@ -120,7 +120,7 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sSta
 					break;
 				case 3:
 					system("cls");
-
+					AddStudentFromKeyBoard(sStart);
 					break;
 				case 4:
 					system("cls");
@@ -143,9 +143,14 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sSta
 						cout << setw(30) << left << "* 4. Add student to course" << "*" << endl;
 						cout << setw(30) << left << "* 5. Add student to course from csv file" << "*" << endl;
 						cout << setw(30) << left << "* 6. Remove student from course" << "*" << endl;
-						cout << setw(30) << left << "* 7. Back" << "*" << endl;
+						cout << "7.Import scoreboard for course" << endl;
+						cout << "8.View scoreboard" << endl;
+						cout << "9.Update a student's result" << endl;
+						cout << "10.View scoreboard of a class" << endl;
+						cout << "11.Export student to a csv file" << endl;
+						cout << setw(30) << left << "* 12. Back" << "*" << endl;
 						cout << "****************************************************" << endl;
-						cout << "Input your choice (1-7): ";
+						cout << "Input your choice (1-12): ";
 
 						cin >> choice3;
 						switch (choice3) {
@@ -155,7 +160,7 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sSta
 							break;
 						case 2:
 							system("cls");
-							/*Course1.updateCourse();*/
+							updatecourse(course);
 							break;
 						case 3:
 							system("cls");
@@ -163,18 +168,35 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sSta
 							break;
 						case 4:
 							system("cls");
-							/*Course1.addOnestudent();*/
+							addonestudent(course);
 							break;
 						case 5:
 							system("cls");
-
+							addStudentToCourse(course);
 							break;
 						case 6:
 							system("cls");
-							/*Course1.deleteOneStudent();*/
+							deleteonestudent(course);
 							break;
 						case 7:
 							system("cls");
+							getmark(course,sStart);
+							break;
+						case 8:
+							system("cls");
+							viewscoreboard(course,sStart);
+							break;
+						case 9:
+							system("cls");
+							updateresult(course,sStart);
+							break;
+						case 10:
+							system("cls");
+							viewscoreofclass(course, s, c, sStart);
+							break;
+						case 11:
+							system("cls");
+							exportToCSVFile(course, sStart);
 							break;
 						default:
 							cout << "Invalid choice" << endl;
@@ -226,7 +248,7 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sSta
 }
 
 
-void studentmenu(student* s) {
+void studentmenu(student* s,Course* course,schoolyear sy) {
 	int choice;
 	do {
 		cout << "***************************************************" << endl;
@@ -241,11 +263,11 @@ void studentmenu(student* s) {
 		switch (choice) {
 		case 1:
 			system("cls");
-			/*viewCourses();*/
+			viewcourse(course, s,sy);
 			break;
 		case 2:
 			system("cls");
-			/*viewScoreBoard();*/
+			viewownscore(course, s);
 			break;
 		case 3:
 			system("cls");

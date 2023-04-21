@@ -5,74 +5,6 @@
 #include"schoolyear.h"
 using namespace std;
 
-void exportToCSVFile(Course* course)
-{
-    string filename = course->courseID + "_Students.csv"; // The filename is the course ID followed by "_Students.csv"
-    ofstream outputFile(filename);
-    if (!outputFile.is_open()) {
-        cout << "Failed to create the file." << endl;
-        return;
-    }
-
-    // Write the header row
-    outputFile << "Student ID,First Name,Last Name,Gender,Class Name,Date of Birth,Social ID,Total Mark,Final Mark,Midterm Mark,Other Mark\n";
-
-    // Iterate over the list of students and write each one to the file
-    student* pHead = course->liststudent;
-    while (pHead != nullptr) {
-        outputFile << pHead->studentID << ",";
-        outputFile << pHead->firstName << ",";
-        outputFile << pHead->lastName << ",";
-        outputFile << pHead->gender << ",";
-        outputFile << pHead->className << ",";
-        outputFile << pHead->dateOfBirth << ",";
-        outputFile << pHead->socialID << ",";
-        outputFile << pHead->totalMark << ",";
-        outputFile << pHead->finalMark << ",";
-        outputFile << pHead->midtermMark << ",";
-        outputFile << pHead->otherMark << "\n";
-        pHead = pHead->next;
-    }
-
-    // Close the file
-    outputFile.close();
-    cout << "Exported the list of students to " << filename << "." << endl;
-}
-
-void getPoints(string filename, student *&head)
-{
-    ifstream file(filename);
-    string line;
-    while (getline(file, line))
-    {
-        stringstream ss(line);
-        string data;
-        student *temp = new student;
-        getline(ss, temp->studentID, ',');
-        getline(ss, temp->firstName, ',');
-        getline(ss, temp->lastName, ',');
-        getline(ss, temp->className, ',');
-        getline(ss, temp->totalMark, ',');
-        getline(ss, temp->finalMark, ',');
-        getline(ss, temp->midtermMark, ',');
-        getline(ss, temp->otherMark, ',');
-        if (head == nullptr)
-        {
-            head = temp;
-        }
-        else
-        {
-            student *curr = head;
-            while (curr->next != nullptr)
-            {
-                curr = curr->next;
-            }
-            curr->next = temp;
-        }
-    }
-    file.close();
-}
-
 bool checkexist(staff* sHead, string id) {
 	while (sHead) {
 		if (sHead->id == id) return 1;
@@ -263,47 +195,45 @@ void createclass(Class*& listclass) {
 	} while (true);
 }
 //
-//void AddStudentFromKeyBoard(student*& head) {
-//	// Input student information from keyboard
-//	student* newStudent = new student;
-//	cout << "Enter student ID: ";
-//	cin >> newStudent->studentID;
-//	cin.ignore();
-//	cout << "Enter first name: ";
-//	cin >> newStudent->firstName;
-//	cin.ignore();
-//	cout << "Enter last name: ";
-//	cin >> newStudent->lastName;
-//	cin.ignore();
-//	cout << "Enter gender: ";
-//	cin >> newStudent->gender;
-//	cin.ignore();
-//	cout << "Enter date of birth: ";
-//	cin >> newStudent->dateOfBirth;
-//	cin.ignore();
-//	cout << "Enter class name: ";
-//	cin >> newStudent->className;
-//	cin.ignore();
-//	cout << "Enter social ID: ";
-//	cin >> newStudent->socialID;
-//	cin.ignore();
-//
-//	// Check if the student ID is unique
-//	student* current = head;
-//	while (current != nullptr) {
-//		if (current->studentID == newStudent->studentID) {
-//			cout << "Error: student ID already exists" << endl;
-//			return;
-//		}
-//		current = current->next;
-//	}
-//	newStudent->next = head;
-//	head = newStudent;
-//	ofstream of;
-//	of.open("liststudent.txt", ios::app);
-//	of << newStudent->studentID << endl << newStudent->firstName << endl << newStudent->lastName << endl << newStudent->className << endl << newStudent->gender << endl << newStudent->dateOfBirth << endl << newStudent->socialID << endl;
-//	of.close();
-//}
+void AddStudentFromKeyBoard(student*& head) {
+	// Input student information from keyboard
+	student* newStudent = new student;
+	cout << "Enter student ID: ";
+	getline(cin, newStudent->studentID);
+	cin.ignore();
+	cout << "Enter first name: ";
+	getline(cin, newStudent->firstName);
+	cin.ignore();
+	cout << "Enter last name: ";
+	getline(cin,newStudent->lastName);
+	cin.ignore();
+	cout << "Enter gender: ";
+	getline(cin, newStudent->gender);
+	cin.ignore();
+	cout << "Enter date of birth: ";
+	getline(cin, newStudent->dateOfBirth);
+	cin.ignore();
+	cout << "Enter class name: ";
+	getline(cin, newStudent->className);
+	cin.ignore();
+	cout << "Enter social ID: ";
+	getline(cin , newStudent->socialID);
+	cin.ignore();
+
+	// Check if the student ID is unique
+	student* current = head;
+	while (current != nullptr) {
+		if (current->studentID == newStudent->studentID) {
+			cout << "Error: student ID already exists" << endl;
+			return;
+		}
+		current = current->next;
+	}
+	newStudent->next = head;
+	head = newStudent;
+	cout << "Input success";
+	cin.get();
+}
 
 
 
@@ -343,10 +273,13 @@ void inputfile(schoolyear s, student*& sStart) {
 		newStudent->gender = fields[4];
 		newStudent->dateOfBirth = fields[5];
 		newStudent->socialID = fields[6];
-		newStudent->next = sStart;
-		sStart = newStudent;
+		if (!sStart) sStart = newStudent;
+		else {
+			student* run = sStart;
+			while (run->next) run = run->next;
+			run->next = newStudent;
+		}
 	}
-	cin.ignore();
 	cout << "Input success";
 	cin.get();
 	f.close();
@@ -415,8 +348,6 @@ void viewlistofstudentinclass(Class* c, student* sStart) {
 	cin.get();
 }
 
-
-
 void viewlistcourse(Course* course) {
 	cin.ignore();
 	if (!course) {
@@ -434,6 +365,9 @@ void viewlistcourse(Course* course) {
 	cout << "Enter to quit";
 	cin.get();
 }
+
+
+
 
 
 
