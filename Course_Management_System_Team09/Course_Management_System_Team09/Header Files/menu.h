@@ -11,4 +11,3 @@ void output(staff* sHead, schoolyear s, Class* c, student* sStart, Course* cHead
 
 void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& course);
 void studentmenu(student* s,Course* course,schoolyear sy);
-
