@@ -18,20 +18,26 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 	string id;
 	string password;
 	while (!f1.eof()) {
-		f1 >> id;
-		f1 >> password;
+		getline(f1, id);
+		getline(f1, password);
 		if (id == "") break;
 		staff* temp = new staff;
-		temp->id.assign(id);
-		temp->password.assign(password);
-		temp->next = sHead;
-		sHead = temp;
+		temp->id=id;
+		temp->password=password;
+		if (!sHead) sHead = temp;
+		else {
+			staff* run = sHead;
+			while (run->next) run = run->next;
+			run->next = temp;
+		}
 	}
 	f1.close();
 	ifstream f2;
 	f2.open("schoolyear.txt");
-	f2 >> s.year;
-	f2 >> s.s1 >> s.s2 >> s.s3;
+	if (!f2.eof()) {
+		f2 >> s.year;
+		f2 >> s.s1 >> s.s2 >> s.s3;
+	}
 	f2.close();
 	ifstream f3;
 	string classname;
@@ -57,10 +63,17 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 	string className;
 	string dateOfBirth;
 	string socialID;
-	int numofcourse;
+	string numofcourse;
 	f4.open("liststudent.txt");
 	while (!f4.eof()) {
-		f4 >> studentID >> firstName >> lastName >> className >> gender >> dateOfBirth >> socialID>>numofcourse;
+		getline(f4, studentID);
+		getline(f4, firstName);
+		getline(f4, lastName);
+		getline(f4, className);
+		getline(f4, gender);
+		getline(f4, dateOfBirth);
+		getline(f4, socialID);
+		getline(f4, numofcourse);
 		if (studentID == "") break;
 		student* temp = new student;
 		temp->studentID = studentID;
@@ -70,11 +83,15 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 		temp->gender = gender;
 		temp->dateOfBirth = dateOfBirth;
 		temp->socialID = socialID;
-		temp->numofcourse = numofcourse;
-		int n = numofcourse;
+		temp->numofcourse = stoi(numofcourse);
+		int n = stoi(numofcourse);
 		while (n) {
 			coursedata* run = new coursedata;
-			f4 >> run->courseName >> run->totalMark >> run->finalMark >>run->midtermMark >> run->otherMark;
+			getline(f4, run->courseName);
+			getline(f4, run->totalMark);
+			getline(f4, run->finalMark);
+			getline(f4, run->midtermMark);
+			getline(f4, run->otherMark);
 			if (!temp->listcourse) temp->listcourse = run;
 			else {
 				coursedata* run2 = temp->listcourse;
@@ -166,8 +183,10 @@ void output(staff* sHead, schoolyear s, Class* c, student* sStart, Course* cHead
 	of1.close();
 	ofstream of2;
 	of2.open("schoolyear.txt");
-	of2 << s.year << endl;
-	of2 << s.s1 << " " << s.s2 << " " << s.s3;
+	if (s.year.length()) {
+		of2 << s.year << endl;
+		of2 << s.s1 << " " << s.s2 << " " << s.s3;
+	}
 	of2.close();
 	ofstream of3;
 	of3.open("listclass.txt");
