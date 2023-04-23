@@ -16,15 +16,27 @@ bool checkexist(staff* sHead, string id) {
 void regis(staff*& sHead) {
 	string id;
 	string password;
+	cout << "|===================================================|" << endl;
+	cout << "|                  Register Staff                   |" << endl;
+	cout << "|===================================================|" << endl;
+	cout << "|                                                  |" << endl;
+	cout << "|          Input id: [                ]            |" << endl;
+	cout << "|                                                  |" << endl;
+	cout << "|          Input password: [           ]           |" << endl;
+	cout << "|===================================================|" << endl;
+
+	cout << "\nPlease enter your details below:" << endl;
 	cout << "Input id: ";
 	cin.ignore();
 	getline(cin, id);
 	cout << "Input password: ";
 	getline(cin, password);
+
 	if (checkexist(sHead, id)) {
 		cout << "id da ton tai, vui long chon id khac" << endl;
 		return;
 	}
+
 	staff* temp = new staff;
 	temp->id = id;
 	temp->password = password;
@@ -33,14 +45,36 @@ void regis(staff*& sHead) {
 	cout << "Register success" << endl;
 }
 
+
 staff* login1(staff* sHead) {
 	string id;
 	string password;
+
+	cout << "|===================================================|" << endl;
+	cout << "|                     Staff Login                    |" << endl;
+	cout << "|===================================================|" << endl;
+	cout << "|                                                   |" << endl;
+	cout << "|           Input id: [                ]             |" << endl;
+	cout << "|                                                   |" << endl;
+	cout << "|      Input password: [               ]            |" << endl;
+	cout << "|                                                   |" << endl;
+	cout << "|                [ Login ] [ Cancel ]               |" << endl;
+	cout << "|===================================================|" << endl;
+
+	cout << "\nPlease enter your login details below:" << endl;
 	cout << "Input id: ";
 	cin.ignore();
 	getline(cin, id);
 	cout << "Input password: ";
 	getline(cin, password);
+
+	string input;
+	getline(cin, input);
+
+	if (input == "Cancel") {
+		cout << "Login cancelled." << endl;
+		return nullptr;
+	}
 
 	while (sHead) {
 		if (sHead->id == id && sHead->password == password) {
@@ -49,57 +83,94 @@ staff* login1(staff* sHead) {
 		}
 		sHead = sHead->next;
 	}
-	if (!sHead) cout << "ID doesn't exist" << endl;
-	cout << "Press enter to continue";
+
+	cout << "ID or password incorrect." << endl;
+	cout << "Press enter to continue.";
 	return nullptr;
 }
 
 
+
 void createschoolyear(schoolyear& s) {
-	if (s.year.length()) {
-		cout << "schoolyear existed";
-		cin.ignore();
-		cin.get();
-		return;
-	}
-	cout << "Input schoolyear: ";
-	cin.ignore();
-	getline(cin, s.year);
-	cout << "create success";
-	cin.get();
+    if (s.year.length()) {
+        cout << "|===================================================|" << endl;
+        cout << "|             Create New School Year                 |" << endl;
+        cout << "|===================================================|" << endl;
+        cout << "|                                                   |" << endl;
+        cout << "|  A school year already exists.                     |" << endl;
+        cout << "|                                                   |" << endl;
+        cout << "|  Press [Enter] to continue.                        |" << endl;
+        cout << "|===================================================|" << endl;
+        cin.ignore();
+        cin.get();
+        return;
+    }
+    cout << "|===================================================|" << endl;
+    cout << "|             Create New School Year                 |" << endl;
+    cout << "|===================================================|" << endl;
+    cout << "|                                                   |" << endl;
+    cout << "|  Please input the new school year:                 |" << endl;
+    cout << "|  [                                            ]   |" << endl;
+    cout << "|===================================================|" << endl;
+    string input;
+    getline(cin, input);
+    if (input == "") {
+        cout << "Error: school year cannot be blank." << endl;
+        cin.get();
+        return;
+    }
+    s.year = input;
+    cout << "|===================================================|" << endl;
+    cout << "|             Create New School Year                 |" << endl;
+    cout << "|===================================================|" << endl;
+    cout << "|                                                   |" << endl;
+    cout << "|  School year created successfully.                 |" << endl;
+    cout << "|                                                   |" << endl;
+    cout << "|  Press [Enter] to continue.                        |" << endl;
+    cout << "|===================================================|" << endl;
+    cin.get();
 }
 
 void deleteschoolyear(schoolyear& s) {
-	if (!s.year.length()) {
-		cout << "No existed schoolyear";
-		cin.get();
-		return;
-	}
-	s.year = "";
-	cout << "Delete success";
-	cin.get();
+    cout << setfill('=') << setw(50) << "\n";
+    cout << "DELETE SCHOOL YEAR\n";
+    cout << setfill('=') << setw(50) << "\n\n";
+    
+    if (!s.year.length()) {
+        cout << "No school year exists.\n\n";
+        cout << "Press enter to continue...";
+        cin.ignore();
+        cin.get();
+        return;
+    }
+
+    s.year = "";
+    cout << "School year deleted successfully.\n\n";
+    cout << "Press enter to continue...";
+    cin.ignore();
+    cin.get();
 }
 
 void createsemester(schoolyear& s) {
 	if (!s.year.length()) {
-		cout << "No schoolyear existed";
+		cout << "No schoolyear existed\n";
 		cin.ignore();
 		cin.get();
 		return;
 	}
 	if (s.s1 == 1 || s.s2 == 1 || s.s3 == 1) {
-		cout << "Semester in progress";
+		cout << "Semester in progress\n";
 		cin.ignore();
 		cin.get();
 		return;
 	}
 	int choice;
 	do {
-		cout << "Choose semester you want to create" << endl;
-		cout << "1.Semester 1" << endl;
-		cout << "2.Semester 2" << endl;
-		cout << "3.Semester 3" << endl;
-		cout << "4.Back" << endl;
+		cout << "Choose semester you want to create\n";
+		cout << "1. Semester 1\n";
+		cout << "2. Semester 2\n";
+		cout << "3. Semester 3\n";
+		cout << "4. Back\n";
 		cout << "Input your choice: ";
 		cin >> choice;
 		switch (choice) {
@@ -107,13 +178,13 @@ void createsemester(schoolyear& s) {
 			system("cls");
 			if (s.s1 == 2) {
 				cin.ignore();
-				cout << "Semester 1 has ended before";
+				cout << "Semester 1 has ended before\n";
 				cin.get();
 				system("cls");
 				break;
 			}
 			s.s1 = 1;
-			cout << "Create success";
+			cout << setw(20) << right << "Create success\n";
 			cin.ignore();
 			cin.get();
 			return;
@@ -121,20 +192,20 @@ void createsemester(schoolyear& s) {
 			system("cls");
 			if (s.s1 == 0) {
 				cin.ignore();
-				cout << "Semester 1 end required";
+				cout << "Semester 1 end required\n";
 				cin.get();
 				system("cls");
 				break;
 			}
 			if (s.s2 == 2) {
 				cin.ignore();
-				cout << "Semester 2 has ended before";
+				cout << "Semester 2 has ended before\n";
 				cin.get();
 				system("cls");
 				break;
 			}
 			s.s2 = 1;
-			cout << "Create success";
+			cout << setw(20) << right << "Create success\n";
 			cin.ignore();
 			cin.get();
 			return;
@@ -142,26 +213,27 @@ void createsemester(schoolyear& s) {
 			system("cls");
 			if (s.s2 == 0) {
 				cin.ignore();
-				cout << "Semester 2 end required";
+				cout << "Semester 2 end required\n";
 				cin.get();
 				system("cls");
 				break;
 			}
 			if (s.s3 == 2) {
 				cin.ignore();
-				cout << "Semester 3 has ended before";
+				cout << "Semester 3 has ended before\n";
 				cin.get();
 				system("cls");
 				break;
 			}
 			s.s3 = 1;
-			cout << "Create success";
+			cout << setw(20) << right << "Create success\n";
 			cin.ignore();
 			cin.get();
 			return;
 		}
 	} while (choice != 4);
 }
+
 
 
 void endsemester(schoolyear s) {
@@ -180,20 +252,21 @@ void endsemester(schoolyear s) {
 
 
 void createclass(Class*& listclass) {
-	cin.ignore();
-	string temp;
-	do {
-		cout << "Input list class for 1st-year students (quit to stop): ";
-		getline(cin, temp);
-		if (temp != "quit") {
-			Class* cur = new Class;
-			cur->classname = temp;
-			cur->next = listclass;
-			listclass = cur;
-		}
-		else break;
-	} while (true);
+    cin.ignore();
+    string temp;
+    do {
+        cout << left << setw(40) << "Input list class for 1st-year students (quit to stop): ";
+        getline(cin, temp);
+        if (temp != "quit") {
+            Class* cur = new Class;
+            cur->classname = temp;
+            cur->next = listclass;
+            listclass = cur;
+        }
+        else break;
+    } while (true);
 }
+
 //
 void AddStudentFromKeyBoard(student*& head) {
 	// Input student information from keyboard
@@ -286,67 +359,71 @@ void inputfile(schoolyear s, student*& sStart) {
 }
 
 void viewlistclass(Class* c) {
-	cin.ignore();
-	if (!c) {
-		cout << "No class existed";
-		cin.get();
-		return;
-	}
-	cout << "LIST OF CLASS" << endl;
-	int i = 1;
-	while (c) {
-		cout << i << "." << c->classname << endl;
-		c = c->next;
-		i++;
-	}
-
-	cout << "Enter to quit";
-	cin.get();
+    cin.ignore();
+    if (!c) {
+        cout << setw(30) << setfill('=') << "" << endl;
+        cout << "No class existed" << endl;
+        cout << setw(30) << setfill('=') << "" << endl;
+        cin.get();
+        return;
+    }
+    cout << setw(30) << setfill('=') << "" << endl;
+    cout << "LIST OF CLASS" << endl;
+    cout << setw(30) << setfill('=') << "" << endl;
+    int i = 1;
+    while (c) {
+        cout << i << ". " << c->classname << endl;
+        c = c->next;
+        i++;
+    }
+    cout << endl << "Press enter to quit";
+    cin.get();
 }
 
 void viewlistofstudentinclass(Class* c, student* sStart) {
-	if (!c) {
-		cin.ignore();
-		cout << "No class existed";
-		cin.get();
-		return;
-	}
-	if (!sStart) {
-		cin.ignore();
-		cout << "No student existed";
-		cin.get();
-		return;
-	}
-	cin.ignore();
+    if (!c) {
+        cin.ignore();
+        cout << "No class existed";
+        cin.get();
+        return;
+    }
+    if (!sStart) {
+        cin.ignore();
+        cout << "No student existed";
+        cin.get();
+        return;
+    }
+    cin.ignore();
 
-	cout << "Choose class you want" << endl;
-	Class* cur = c;
-	int i = 1;
-	while (cur) {
-		cout << i << "." << cur->classname << endl;
-		i++;
-		cur = cur->next;
-	}
-	string name;
-	cout << "Input (name):";
-	getline(cin, name);
-	while (c->classname != name) {
-		c = c->next;
-	}
+    cout << "Choose class you want:" << endl;
+    Class* cur = c;
+    int i = 1;
+    while (cur) {
+        cout << setw(3) << i << ". " << cur->classname << endl;
+        i++;
+        cur = cur->next;
+    }
+    string name;
+    cout << "Input (name): ";
+    getline(cin, name);
+    while (c->classname != name) {
+        c = c->next;
+    }
 
-	system("cls");
-	cout << "CLASS " << c->classname << endl;
-	i = 1;
-	cout << "No	Student ID	Last Name	First Name	Gender	Date of birth	Social ID" << endl;
-	while (sStart) {
-		if (sStart->className == name) {
-			cout << i << "	" << sStart->studentID << "	" << sStart->lastName << "	" << sStart->firstName << "	" << sStart->gender << "	" << sStart->dateOfBirth << "	" << sStart->socialID << endl;
-			i++;
-		}
-		sStart = sStart->next;
-	}
-	cin.get();
+    system("cls");
+    cout << "CLASS " << c->classname << endl;
+    i = 1;
+    cout << setw(2) << "No " << setw(12) << "Student ID " << setw(12) << "Last Name " << setw(12) << "First Name " << setw(8) << "Gender " << setw(15) << "Date of birth " << setw(12) << "Social ID" << endl;
+    while (sStart) {
+        if (sStart->className == name) {
+            cout << setw(2) << i << " " << setw(12) << sStart->studentID << " " << setw(12) << sStart->lastName << " " << setw(12) << sStart->firstName << " " << setw(8) << sStart->gender << " " << setw(15) << sStart->dateOfBirth << " " << setw(12) << sStart->socialID << endl;
+            i++;
+        }
+        sStart = sStart->next;
+    }
+    cin.get();
 }
+
 
 void viewlistcourse(Course* course) {
 	cin.ignore();
