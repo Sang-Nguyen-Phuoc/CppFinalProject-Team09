@@ -32,4 +32,4 @@ struct student {
 
 };
 student* login2(student* sStart);
-
+void changepassword2(student*& s);
