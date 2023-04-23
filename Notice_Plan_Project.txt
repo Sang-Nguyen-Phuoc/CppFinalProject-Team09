@@ -1,1 +1,3 @@
-Coding functions about staff, students and courses.
+Duc: Update source code, record video and upload to Ytb
+Sang: Write report about data structure how to store data.
+Duy: Complete UI System
