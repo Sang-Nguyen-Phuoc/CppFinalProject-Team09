@@ -25,7 +25,7 @@ void createschoolyear(schoolyear& s);
 void deleteschoolyear(schoolyear& s);
 void createsemester(schoolyear& s);
 
-void endsemester(schoolyear s);
+void endsemester(schoolyear& s);
 void createclass(Class*& listclass);
 
 void viewlistcourse(Course* course);
