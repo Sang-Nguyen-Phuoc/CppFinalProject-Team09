@@ -29,3 +29,4 @@ void endsemester(schoolyear& s);
 void createclass(Class*& listclass);
 
 void viewlistcourse(Course* course);
+void changepassword1(staff*& s);
