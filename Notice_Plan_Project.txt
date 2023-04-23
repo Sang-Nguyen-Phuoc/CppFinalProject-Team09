@@ -1,3 +1,14 @@
 Duc: Update source code, record video and upload to Ytb
 Sang: Write report about data structure how to store data.
 Duy: Complete UI System
+
+
+Report about the source code:
+
+Our project involves building a system that manages courses, students, staff, school years, classes, and menus. To achieve this, we have utilized the struct data structure, which is used to group related data types together under a single name. By using structs, we have made it easier to organize and manipulate data, improving the efficiency of our code.
+
+In addition to using struct, we have also employed various data storage techniques, such as linked lists and CSV files. Linked lists are used to store and manipulate data in memory dynamically. They have been used to store lists of students in each class, classes in each course, courses in each semester, and semesters in a school year. The use of linked lists allows for efficient traversal and modification of the data, making it easier to update student records and course information.
+
+CSV files have been used to store students' marks, lists of student information, and course names. CSV files provide a means for storing and exchanging large amounts of data between applications in a standardized format, making it easier to share information between different systems.
+
+Overall, the use of struct, linked lists, and CSV files has allowed us to build a flexible, efficient, and scalable system for managing courses, students, staff, school years, classes, and menus. This approach has improved the performance of our code, reduced complexity, and made it easier to update and manage data.
