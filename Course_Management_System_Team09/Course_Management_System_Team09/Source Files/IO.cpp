@@ -64,7 +64,6 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 	string dateOfBirth;
 	string socialID;
 	string numofcourse;
-	string password;
 	f4.open("liststudent.txt");
 	while (!f4.eof()) {
 		getline(f4, studentID);
