@@ -64,6 +64,7 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 	string dateOfBirth;
 	string socialID;
 	string numofcourse;
+	string password;
 	f4.open("liststudent.txt");
 	while (!f4.eof()) {
 		getline(f4, studentID);
@@ -74,6 +75,7 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 		getline(f4, dateOfBirth);
 		getline(f4, socialID);
 		getline(f4, numofcourse);
+		getline(f4, password);
 		if (studentID == "") break;
 		student* temp = new student;
 		temp->studentID = studentID;
@@ -85,6 +87,7 @@ void input(staff*& sHead, schoolyear& s, Class*& c, student*& sStart, Course*& c
 		temp->socialID = socialID;
 		temp->numofcourse = stoi(numofcourse);
 		int n = stoi(numofcourse);
+		temp->password = password;
 		while (n) {
 			coursedata* run = new coursedata;
 			getline(f4, run->courseName);
@@ -202,7 +205,7 @@ void output(staff* sHead, schoolyear s, Class* c, student* sStart, Course* cHead
 
 	while (sStart) {
 		student* cur = sStart;
-		of4 << sStart->studentID << endl << sStart->firstName << endl << sStart->lastName << endl << sStart->className << endl << sStart->gender << endl << sStart->dateOfBirth << endl << sStart->socialID << endl << sStart->numofcourse << endl;
+		of4 << sStart->studentID << endl << sStart->firstName << endl << sStart->lastName << endl << sStart->className << endl << sStart->gender << endl << sStart->dateOfBirth << endl << sStart->socialID << endl << sStart->numofcourse << endl << sStart->password << endl;
 		while (sStart->listcourse) {
 			coursedata* temp = sStart->listcourse;
 			of4 << sStart->listcourse->courseName << endl << sStart->listcourse->totalMark << endl << sStart->listcourse->finalMark << endl << sStart->listcourse->midtermMark << endl << sStart->listcourse->otherMark << endl;
