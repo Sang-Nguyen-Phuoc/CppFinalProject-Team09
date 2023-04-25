@@ -4,6 +4,16 @@
 using namespace std;
 
 void addCourse(Course*& course) {
+ if (!s.year.length()) {
+        cout << "No schoolyear existed";
+        cin.get();
+        return;
+    }
+    if (s.s1!=1&&s.s2!=1&&s.s3!=1)  {
+        cout << "No semester in progress";
+        cin.get();
+        return;
+    }
     Course* temp = new Course;
     cout << setw(30) << setfill('') << "" << endl;
     cout << setfill(' ');
@@ -42,8 +52,13 @@ void addCourse(Course*& course) {
     cin >> temp->numberofCredits;
     cin.ignore();
     system("cls");
-    temp->next = course;
-    course = temp;
+    temp->sc = s;
+    if (!course) course = temp;
+    else {
+        Course* run = course;
+        while (run->next) run = run->next;
+        run->next = temp;
+    }
     cout << setw(30) << setfill('') << "" << endl;
     cout << setfill(' ');
     cout << setw(30) << "Add course success" << endl;
@@ -51,7 +66,7 @@ void addCourse(Course*& course) {
     cin.get();
     }
 
-void deleteCourse(Course*& course) {
+void deleteCourse(Course*& course,student*sHead) {
     cin.ignore();
     if (!course) {
     cout << setw(30) << setfill('') << "" << endl;
@@ -67,10 +82,42 @@ void deleteCourse(Course*& course) {
     cout << setfill(' ');
     cout << setw(30) << "Delete Course" << endl;
     cout << setw(30) << setfill('') << "" << endl << endl;
+    Course* cur = course;
+    int i = 1;
+    while (cur) {
+        cout << i << "." << cur->courseName << endl;
+        i++;
+        cur = cur->next;
+    }
     cout << "Course you want to delete:";
     getline(cin, name);
-    cin.ignore();
-    Course* cur = course;
+    
+    student* run = sHead;
+    while (run) {
+        if (run->listcourse) {
+            coursedata* run2 = run->listcourse;
+            if (run2->courseName == name) {
+                coursedata* temp = run2;
+                run2 = run2->next;
+                delete temp;
+            }
+            else {
+                coursedata* prev = run2;
+                run2 = run2->next;
+                while (run2) {
+                    if (run2->courseName == name) {
+                        prev->next = run2->next;
+                        delete run2;
+                        break;
+                    }
+                    run2 = run2->next;
+                }
+            }
+        }
+        run = run->next;
+    }
+    
+    cur = course;
     if (cur->courseName == name) {
     course = course->next;
     delete cur;
@@ -141,7 +188,7 @@ void viewliststudentincourse(Course* course) {
     i = 1;
     student* temp = cur->liststudent;
     while (temp) {
-        cout << setw(5) << i << setw(20) << temp->socialID << setw(20) << temp->lastName << setw(20) << temp->firstName << endl;
+        cout << setw(5) << i << setw(20) << temp->studentID << setw(20) << temp->lastName << setw(20) << temp->firstName << endl;
         i++;
         temp = temp->next;
     }
@@ -352,7 +399,6 @@ void changecoursename(Course* course) {
     getline(cin, name);
     if (name == "quit") return;
     course->courseName = name;
-    cin.ignore();
     cout << setw(30) << left << "Change course name success" << endl;
     cout << setw(30) << left << "Enter to quit";
     cin.get();
@@ -366,7 +412,6 @@ void changecourseID(Course* course) {
     getline(cin, name);
     if (name == "quit") return;
     course->courseID = name;
-    cin.ignore();
     cout << setw(30) << left << "Change course ID success" << endl;
     cout << setw(30) << left << "Enter to quit";
     cin.get();
@@ -379,7 +424,6 @@ void changedayofweek(Course* course) {
     getline(cin, name);
     if (name == "quit") return;
     course->dayofWeek = name;
-    cin.ignore();
     cout << setw(30) << left << "Change day of week success" << endl;
     cout << setw(30) << left << "Enter to quit";
     cin.get();
@@ -393,7 +437,6 @@ void changesession(Course* course) {
     getline(cin, name);
     if (name == "quit") return;
     course->sessionTime = name;
-    cin.ignore();
     cout << setw(30) << left << "Change session time success" << endl;
     cout << setw(30) << left << "Enter to quit";
     cin.get();
@@ -407,7 +450,6 @@ void changecourseID(Course* course) {
     getline(cin, name);
     if (name == "quit") return;
     course->courseID = name;
-    cin.ignore();
     cout << "Change course ID success" << endl;
     cout << "Enter to quit ";
     cin.get();
@@ -450,12 +492,12 @@ void addonestudent(Course* course) {
     cout << setw(20) << left << "Input class name:";
     getline(cin, temp->className);
     cin.ignore();
-    if (cur->liststudent == nullptr) {
+   if (!cur->liststudent) {
         cur->liststudent = temp;
     }
     else {
         student* current = cur->liststudent;
-        while (current->next != nullptr) {
+        while (current->next) {
             current = current->next;
         }
         current->next = temp;
@@ -711,7 +753,7 @@ while (run) {
         cur1 = course;
         float gpa = 0;
         while (cur1) {
-            if (cur1->sc.s1 <= sy.s1 && cur1->sc.s2 <= sy.s2 && cur1->sc.s3 <= sy.s3) {
+            if (cur1->sc.s1 == sy.s1 && cur1->sc.s2 == sy.s2 && cur1->sc.s3 == sy.s3) {
                 coursedata* check = run->listcourse;
                 while (check) {
                     gpa += stof(check->totalMark);

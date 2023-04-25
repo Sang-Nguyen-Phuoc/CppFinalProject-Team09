@@ -1,5 +1,5 @@
-#pragma once
-#include"schoolyear.h"
+//#pragma once
+// #include "./Header Files/schoolyear.h"
 #include"class.h"
 #include"Course.h"
 #include"student.h"
@@ -29,3 +29,4 @@ void endsemester(schoolyear& s);
 void createclass(Class*& listclass);
 
 void viewlistcourse(Course* course);
+void changepassword1(staff*& s);

@@ -5,6 +5,26 @@ using namespace std;
 //// Declare a global pointer to the head of the linked list
 //Student* head = nullptr;
 //
+
+
+void changepassword2(student*& s) {
+	cin.ignore();
+	cout << "Input current password:";
+	string password;
+	getline(cin, password);
+	if (password == s->password) {
+		cout << "Input new password:";
+		getline(cin, password);
+		s->password = password;
+		cout << "Change password success";
+		cin.get();
+		return;
+	}
+	cout << "Password is incorrect";
+	cin.get();
+	return;
+}
+
 student* login2(student* sStart) {
 	string id;
 	string password;

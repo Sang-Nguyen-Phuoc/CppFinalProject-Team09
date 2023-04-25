@@ -105,9 +105,10 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sSta
 				std::cout << std::setw(50) << std::setfill(' ') << std::left << "11. End a Semester" << std::endl;
 				std::cout << std::setw(50) << std::setfill(' ') << std::left << "12. Delete School Year" << std::endl;
 				std::cout << std::setw(50) << std::setfill(' ') << std::left << "13. Create Staff Account" << std::endl;
-				std::cout << std::setw(50) << std::setfill(' ') << std::left << "14. Back" << std::endl;
+				cout << "14.Change account's password" << endl;
+				std::cout << std::setw(50) << std::setfill(' ') << std::left << "15. Back" << std::endl;
 				std::cout << std::setw(50) << std::setfill('*') << "" << std::endl;
-				std::cout << std::setw(50) << std::setfill(' ') << std::left << "Enter your choice (1-14): ";
+				std::cout << std::setw(50) << std::setfill(' ') << std::left << "Enter your choice (1-15): ";
 				cin >> choice2;
 				switch (choice2) {
 				case 1:
@@ -202,7 +203,7 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sSta
 							cout << "Invalid choice" << endl;
 							break;
 						}
-					} while (choice3 != 7);
+					} while (choice3 != 12);
 					break;
 				case 7:
 					system("cls");
@@ -233,12 +234,13 @@ void staffmenu(staff* a, staff*& sHead, schoolyear& s, Class*& c, student*& sSta
 					break;
 				case 14:
 					system("cls");
+					changepassword1(a);
 					break;
 				default:
 					cout << "Invalid choice" << endl;
 					break;
 				}
-			} while (choice2 != 14);
+			} while (choice2 != 15);
 			break;
 		case 3:
 			system("cls");
@@ -254,27 +256,46 @@ void studentmenu(student* s,Course* course,schoolyear sy) {
 		cout << "***************************************************" << endl;
 		cout << "*             STUDENT SCORE MANAGEMENT            *" << endl;
 		cout << "***************************************************" << endl;
-		cout << "*         1. View courses                          *" << endl;
-		cout << "*         2. View score board                      *" << endl;
-		cout << "*         3. Logout                                *" << endl;
+		cout << "1. My profile" << endl;
+		cout << "*         2. View courses                          *" << endl;
+		cout << "*         3. View score board                      *" << endl;
+		cout << "4. Change account's password" << endl;
+		cout << "*         5. Logout                                *" << endl;
 		cout << "***************************************************" << endl;
-		cout << "Enter your choice (1-3): ";
+		cout << "Enter your choice (1-5): ";
 		cin >> choice;
 		switch (choice) {
-		case 1:
+case 1:
 			system("cls");
-			viewcourse(course, s,sy);
+			cin.ignore();
+			cout << "YOUR PROFILE" << endl;
+			cout << "Student ID:" << s->studentID << endl;
+			cout << "Last Name:" << s->lastName << endl;
+			cout << "First Name:" << s->firstName << endl;
+			cout << "Day of birth:" << s->dateOfBirth << endl;
+			cout << "Gender:" << s->gender << endl;
+			cout << "Class:" << s->className << endl;
+			cout << "Social ID:" << s->socialID << endl;
+			cout << "Enter to quit";
+			cin.get();
 			break;
 		case 2:
 			system("cls");
-			viewownscore(course, s);
+			viewcourse(course, s,sy);
 			break;
 		case 3:
+			system("cls");
+			viewownscore(course, s);
+			break;
+		case 4:
+			system("cls");
+			break;
+		case 5:
 			system("cls");
 			break;
 		default:
 			cout << "Invalid choice" << endl;
 			break;
 		}
-	} while (choice != 3);
+	} while (choice != 5);
 }

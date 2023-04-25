@@ -1,4 +1,4 @@
-#pragma once
+// #pragma once
 #include <iostream> 
 #include <fstream>
 #include <iostream>
@@ -32,4 +32,4 @@ struct student {
 
 };
 student* login2(student* sStart);
-
+void changepassword2(student*& s);
