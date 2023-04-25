@@ -1,11 +1,12 @@
-#include<iostream>
-#include<string>
-#include"menu.h"
-#include<stdlib.h>
-#include<fstream>
+#include <iostream>
+#include <string>
+#include "menu.h"
+#include <stdlib.h>
+#include <fstream>
 using namespace std;
 
-int main() {
+int main()
+{
 	menu();
 	return 0;
 }

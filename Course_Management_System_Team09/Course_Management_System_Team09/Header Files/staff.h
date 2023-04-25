@@ -1,5 +1,4 @@
-//#pragma once
-// #include "./Header Files/schoolyear.h"
+#pragma once
 #include"class.h"
 #include"Course.h"
 #include"student.h"
