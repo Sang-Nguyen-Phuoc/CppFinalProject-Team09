@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 using namespace std;
-struct schoolyear {
+struct schoolyear
+{
 	string year;
 	int s1 = 0;
 	int s2 = 0;

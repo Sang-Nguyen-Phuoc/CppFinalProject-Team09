@@ -1,31 +1,32 @@
 #pragma once
-#include"class.h"
-#include"Course.h"
-#include"student.h"
-#include<string>
+#include "class.h"
+#include "Course.h"
+#include "student.h"
+#include <string>
 
 using namespace std;
-struct staff {
+struct staff
+{
 	string id;
 	string password;
-	staff* next = nullptr;
+	staff *next = nullptr;
 };
-bool checkexist(staff* sHead, string id);
-void regis(staff*& sHead);
-void createclass(Class*& listclass);
-void AddStudentFromKeyBoard(student*& head);
-void inputfile(schoolyear s, student*& sStart);
-void viewlistclass(Class* c);
-void viewlistofstudentinclass(Class* c, student* sStart);
+bool checkexist(staff *sHead, string id);
+void regis(staff *&sHead);
+void createclass(Class *&listclass);
+void AddStudentFromKeyBoard(student *&head);
+void inputfile(schoolyear s, student *&sStart);
+void viewlistclass(Class *c);
+void viewlistofstudentinclass(Class *c, student *sStart);
 
-staff* login1(staff* sHead);
+staff *login1(staff *sHead);
 
-void createschoolyear(schoolyear& s);
-void deleteschoolyear(schoolyear& s);
-void createsemester(schoolyear& s);
+void createschoolyear(schoolyear &s);
+void deleteschoolyear(schoolyear &s);
+void createsemester(schoolyear &s);
 
-void endsemester(schoolyear& s);
-void createclass(Class*& listclass);
+void endsemester(schoolyear &s);
+void createclass(Class *&listclass);
 
-void viewlistcourse(Course* course);
-void changepassword1(staff*& s);
+void viewlistcourse(Course *course);
+void changepassword1(staff *&s);

@@ -1,10 +1,10 @@
 #pragma once
-#include<string>
-#include"student.h"
+#include <string>
+#include "student.h"
 using namespace std;
 
-struct Class {
+struct Class
+{
 	string classname;
-	Class* next=nullptr;
-
+	Class *next = nullptr;
 };

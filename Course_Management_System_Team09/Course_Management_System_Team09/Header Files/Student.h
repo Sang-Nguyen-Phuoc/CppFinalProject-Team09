@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream> 
+#include <iostream>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -7,17 +7,18 @@
 #include <vector>
 
 using namespace std;
-struct coursedata {
+struct coursedata
+{
     string courseName;
     string totalMark = "x";
     string finalMark = "x";
     string midtermMark = "x";
     string otherMark = "x";
-    coursedata* next = nullptr;
+    coursedata *next = nullptr;
 };
 
-
-struct student {
+struct student
+{
     string studentID;
     string firstName;
     string lastName;
@@ -26,10 +27,9 @@ struct student {
     string dateOfBirth;
     string socialID;
     int numofcourse = 0;
-    student* next = nullptr;
-    coursedata* listcourse = nullptr;
+    student *next = nullptr;
+    coursedata *listcourse = nullptr;
     string password = "1";
-
 };
-student* login2(student* sStart);
-void changepassword2(student*& s);
+student *login2(student *sStart);
+void changepassword2(student *&s);
