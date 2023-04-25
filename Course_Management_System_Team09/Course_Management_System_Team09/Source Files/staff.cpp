@@ -5,68 +5,7 @@
 #include"schoolyear.h"
 using namespace std;
 
-void changepassword1(staff*& s) {
-	cin.ignore();
-	cout << "Input current password:";
-	string password;
-	getline(cin, password);
-	if (password == s->password) {
-		cout << "Input new password:";
-		getline(cin, password);
-		s->password = password;
-		cout << "Change password success";
-		cin.get();
-		return;
-	}
-	cout << "Password is incorrect";
-	cin.get();
-	return;
-}
 
-
-bool checkexist(staff* sHead, string id) {
-	while (sHead) {
-		if (sHead->id == id) return 1;
-		sHead = sHead->next;
-	}
-	return 0;
-}
-
-void regis(staff*& sHead) {
-	string id;
-	string password;
-	cout << "Input id: ";
-	cin.ignore();
-	getline(cin, id);
-	cout << "Input password: ";
-	getline(cin, password);
-	if (checkexist(sHead, id)) {
-		cout << "id da ton tai, vui long chon id khac" << endl;
-		return;
-	}
-	staff* temp = new staff;
-	temp->id = id;
-	temp->password = password;
-	temp->next = sHead;
-	sHead = temp;
-	cout << "Register success" << endl;
-}
-
-staff* login1(staff* sHead) {
-	string id;
-	string password;
-	cout << "Input id: ";
-	cin.ignore();
-	getline(cin, id);
-	cout << "Input password: ";
-	getline(cin, password);
-
-	while (sHead) {#include"staff.h"
-#include<iostream>
-#include<fstream>
-#include"student.h"
-#include"schoolyear.h"
-using namespace std;
 
 void changepassword1(staff*& s) {
 	cin.ignore();
